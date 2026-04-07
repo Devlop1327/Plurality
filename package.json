@@ -4,7 +4,7 @@
   "description": "Aplicación educativa sobre género, orientación sexual y diversidad",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "npm run css:build && node server.js",
     "dev": "concurrently \"npm run css:watch\" \"node server.js\"",
     "css:build": "tailwindcss -i css/input.css -o css/style.css",
     "css:watch": "tailwindcss -i css/input.css -o css/style.css --watch"
