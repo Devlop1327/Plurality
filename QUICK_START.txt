@@ -1,0 +1,210 @@
+================================================================================
+                    ✨ PLURALITY - GUÍA RÁPIDA DE INICIO ✨
+================================================================================
+
+¡Bienvenido! Tu aplicación Plurality ha sido creada exitosamente.
+
+================================================================================
+🚀 CÓMO INICIAR LA APP
+================================================================================
+
+OPCIÓN 1: Sin servidor (Recomendado para inicio rápido)
+────────────────────────────────────────────────────────
+1. Navega hasta la carpeta del proyecto
+2. Abre el archivo "index.html" directamente en tu navegador
+3. ¡La app comenzará automáticamente!
+
+OPCIÓN 2: Con servidor Node.js (Recomendado para desarrollo)
+───────────────────────────────────────────────────────────
+1. Asegúrate de tener Node.js instalado (https://nodejs.org)
+2. Abre una terminal/PowerShell en la carpeta del proyecto
+3. Ejecuta: npm start
+4. Abre en tu navegador: http://localhost:3000
+
+OPCIÓN 3: Con Python
+──────────────────
+Python 3:
+  python -m http.server 3000
+
+Python 2:
+  python -m SimpleHTTPServer 3000
+
+Luego abre: http://localhost:3000
+
+================================================================================
+📱 ESTRUCTURA DE LA APLICACIÓN
+================================================================================
+
+La app tiene 5 módulos principales:
+
+1. 📊 DASHBOARD (Inicio)
+   - Resumen de tu progreso en todos los módulos
+   - Resumen de puntos ganados
+   - Acceso rápido a todas las secciones
+   - Panel de control centralizado
+
+2. 📚 APRENDE (Módulo Educativo)
+   - 4 lecciones interactivas:
+     • Género vs Sexo
+     • Identidad de Género
+     • Orientación Sexual
+     • Diversidad e Inclusión
+   - Navegación fluida entre lecciones
+
+3. 🎮 JUEGA (Centro de Juegos)
+   - Quiz Rápido: 5 preguntas de opción múltiple
+   - Juego de Emparejamiento: Conceptos y definiciones
+   - Sistema de puntos
+
+4. 💭 EMPATIZA (Simulador de Decisiones)
+   - 3 escenarios interactivos
+   - Toma decisiones empáticas
+   - Feedback sobre el impacto de tus acciones
+
+5. ✅ EVALÚATE (Evaluación Final)
+   - Test de 10 preguntas completo
+   - Verificación de tu aprendizaje
+   - Sistema de logros y medallas
+
+================================================================================
+💾 DATOS Y PROGRESO
+================================================================================
+
+Tu progreso se guarda AUTOMÁTICAMENTE en el navegador using LocalStorage:
+- Porcentaje completado de cada módulo
+- Puntuación de juegos
+- Resultados de evaluaciones
+- Preferencia de tema (oscuro/claro)
+
+Para BORRAR todo tu progreso:
+- Haz clic en "Reiniciar Progreso" en el Dashboard
+- O limpia el caché de cookies de tu navegador
+
+================================================================================
+🎨 PERSONALIZACION
+================================================================================
+
+Modo Oscuro/Claro:
+- Haz clic en el ícono de luna en la esquina superior derecha
+- Tu preferencia se guardará automáticamente
+
+Colores principales de la app:
+- Púrpura (#653DA7) - Colores primarios
+- Turquesa (#006A62) - Colores secundarios
+- Marrón (#714E00) - Colores terciarios
+
+================================================================================
+🔧 ESTRUCTURA DE ARCHIVOS
+================================================================================
+
+stitch/
+├── index.html                          # Página principal
+├── package.json                        # Información del proyecto
+├── server.js                           # Servidor local (Node.js)
+├── README.md                           # Documentación completa
+├── QUICK_START.txt                     # Este archivo
+├── js/
+│   ├── app.js                          # Controlador SPA principal
+│   ├── data/
+│   │   └── quiz.js                     # Base de datos de preguntas
+│   └── modules/
+│       ├── storage.js                  # Gestión de datos locales
+│       ├── dashboard.js                # Módulo Dashboard
+│       ├── educativo.js                # Módulo Educativo
+│       ├── juegos.js                   # Módulo Juegos
+│       ├── simulador.js                # Módulo Simulador
+│       └── evaluacion.js               # Módulo Evaluación
+└── [otras carpetas de diseño original]
+
+================================================================================
+📋 CARACTERÍSTICAS PRINCIPALES
+================================================================================
+
+✅ Aplicación de Una Página (SPA)
+   - Navegación rápida sin recargar
+   - Transiciones suaves
+   - Experiencia fluida
+
+✅ Responsiva
+   - Funciona en desktop, tablet y móvil
+   - Diseño adaptativo
+
+✅ Sin Conexión a Internet
+   - LocalStorage para persistencia
+   - No requiere servidor externo
+
+✅ Modo Oscuro
+   - Tema claro y oscuro
+   - Configurable por usuario
+
+✅ Sistema de Logros
+   - Medallas por completar actividades
+   - Progreso visual
+
+✅ Compatible
+   - Chrome, Firefox, Safari, Edge
+   - Accesibilidad mejorada
+
+================================================================================
+🎯 GUÍA DE APRENDIZAJE SUGERIDA
+================================================================================
+
+1. Comienza en el DASHBOARD para ver una visión general
+2. Ve a APRENDE y completa las 4 lecciones
+3. Prueba tus conocimientos en JUEGA (Quiz + Emparejamiento)
+4. Reflexiona sobre tus valores en EMPATIZA
+5. Evalúate completamente en EVALÚATE
+6. Vuelve al Dashboard para ver tu progreso final
+
+Tiempo estimado: 45-60 minutos para completar la app
+
+================================================================================
+🐛 SOLUCIÓN DE PROBLEMAS
+================================================================================
+
+Problema: La app no carga
+Solución:
+- Recarga la página (Ctrl+F5 o Cmd+Shift+R)
+- Intenta con otro navegador
+- Asegúrate que JavaScript esté habilitado
+
+Problema: Los datos no se guardan
+Solución:
+- Asegúrate que tu navegador permite LocalStorage
+- Intenta con modo privado/incógnito desactivado
+- Borra el caché del navegador
+
+Problema: Las imágenes no se ven
+Solución:
+- Usa el servidor (node server.js) en lugar de abrir directamente
+- Recarga la página
+
+================================================================================
+📞 INFORMACIÓN TÉCNICA
+================================================================================
+
+Navegador mínimo recomendado:
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+Lo que necesitas:
+- Si HTML directo: Solo un navegador web moderno
+- Si con Node.js: Node.js 14 o superior
+
+Tamaño del proyecto: ~200KB (HTML, CSS, JS)
+Sin dependencias externas (solo CDN de Tailwind CSS)
+
+================================================================================
+🎉 ¡BIEN HECHO!
+================================================================================
+
+Tu aplicación Plurality está lista para usar. Esta es una herramienta educativa
+completa sobre género, orientación sexual y diversidad.
+
+Enjoy learning and promoting inclusion! 🌈
+
+Para más información, lee el archivo README.md
+
+================================================================================

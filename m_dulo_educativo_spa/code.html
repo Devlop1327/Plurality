@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#ffedd6",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#260058",
+                    "on-tertiary-fixed": "#281900",
+                    "surface-container-highest": "#e4e2e1",
+                    "primary-container": "#7e57c2",
+                    "on-primary": "#ffffff",
+                    "outline": "#7b7483",
+                    "surface-variant": "#e4e2e1",
+                    "on-secondary-container": "#006f66",
+                    "secondary": "#006a62",
+                    "surface": "#fbf9f8",
+                    "secondary-container": "#81f3e5",
+                    "tertiary": "#714e00",
+                    "background": "#fbf9f8",
+                    "on-secondary-fixed": "#00201d",
+                    "inverse-surface": "#303030",
+                    "primary-fixed": "#ebdcff",
+                    "on-surface-variant": "#4a4452",
+                    "on-surface": "#1b1c1b",
+                    "surface-bright": "#fbf9f8",
+                    "on-secondary-fixed-variant": "#005049",
+                    "surface-container-high": "#eae8e7",
+                    "surface-container": "#efedec",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#d4bbff",
+                    "surface-dim": "#dbdad9",
+                    "on-primary-container": "#f6ecff",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#916400",
+                    "secondary-fixed-dim": "#66d9cc",
+                    "outline-variant": "#ccc3d3",
+                    "on-primary-fixed-variant": "#572e99",
+                    "surface-tint": "#6f48b2",
+                    "tertiary-fixed": "#ffdeac",
+                    "on-background": "#1b1c1b",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f2f0ef",
+                    "secondary-fixed": "#84f5e8",
+                    "primary": "#653da7",
+                    "surface-container-low": "#f5f3f2",
+                    "primary-fixed-dim": "#d4bbff",
+                    "on-tertiary-fixed-variant": "#604100",
+                    "tertiary-fixed-dim": "#ffba38"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Lexend"],
+                    "label": ["Lexend"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Lexend', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-[#fbf9f8]/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 shadow-[0px_20px_40px_rgba(74,68,82,0.06)]">
+<nav class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-bold text-[#7E57C2] dark:text-[#b39ddb]">Plurality</div>
+<div class="hidden md:flex items-center gap-8 font-['Plus_Jakarta_Sans'] font-semibold tracking-tight">
+<a class="text-[#7E57C2] border-b-2 border-[#7E57C2] pb-1 font-bold" href="#">Aprende</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#7E57C2] transition-colors" href="#">Juega</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#7E57C2] transition-colors" href="#">Evalúate</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-[#7E57C2]">dark_mode</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden ring-2 ring-primary-container/20">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="minimalist 3d avatar of a friendly smiling person with glasses and soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA1I1PzcAU1uj8lAqruLq9OOl3kmsiuSmN-mK6jOm967CT0CC2n5IkYewAUFjO9XM48XM2u9gKcCPhxD4wstyWKEDgR5iY6cbsNl13WQpYwRGhHDCHHX595cwI-IJXVllpkBBgdD8VLbW2FYhtiagpVWWudvln2gXzmWnl_0RkM1ATNBDKaFDRL1g9f5vp7Pe2d7yghEaRPIzLSmGimWBVmlqo2RpmksWY_ZPyaq_8Ar66k9VUFNB2oxOTG-DXEKkqBkIuiCJbfLE"/>
+</div>
+</div>
+</nav>
+</header>
+<main class="max-w-7xl mx-auto flex min-h-[calc(100vh-80px)]">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col w-64 h-[calc(100vh-80px)] p-6 sticky top-20 bg-[#fbf9f8] dark:bg-slate-900 font-['Lexend'] text-sm">
+<div class="mb-8">
+<h3 class="text-xl font-black text-[#7E57C2] mb-1">Módulos</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Tu camino de aprendizaje</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 p-3 bg-[#7E57C2]/10 text-[#7E57C2] font-bold rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="diversity_3">diversity_3</span>
+<span>Sexo vs Género</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="fingerprint">fingerprint</span>
+<span>Identidad</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span>Orientación</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span>Diversidad</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/20">
+<div class="bg-primary-fixed/30 p-4 rounded-xl mb-4">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider">Tu Progreso</span>
+<span class="text-primary font-bold">25%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-1/4 rounded-full"></div>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-bold hover:opacity-90 transition-opacity">Ver Progreso</button>
+</div>
+</aside>
+<!-- Main Canvas -->
+<section class="flex-1 p-6 lg:p-12">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 text-on-surface-variant text-sm mb-8">
+<span>Explora</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="font-bold text-primary">Sexo vs Género</span>
+</div>
+<!-- Content Header -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12 items-end">
+<div class="md:col-span-8">
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-6">Diferencias biológicas y sociales</h1>
+<p class="text-xl text-on-surface-variant leading-relaxed max-w-2xl">
+                        Para entender la pluralidad humana, primero debemos distinguir entre los rasgos físicos con los que nacemos y las construcciones culturales que aprendemos.
+                    </p>
+</div>
+<div class="md:col-span-4 flex justify-end">
+<div class="bg-secondary-fixed p-6 rounded-lg text-on-secondary-fixed text-center w-full md:w-auto">
+<span class="material-symbols-outlined text-4xl mb-2" data-icon="lightbulb">lightbulb</span>
+<p class="text-xs font-bold uppercase tracking-widest">Concepto Clave</p>
+<p class="font-bold">Lo biológico no es destino.</p>
+</div>
+</div>
+</div>
+<!-- Bento Content Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+<!-- Sexo Card -->
+<div class="md:col-span-2 bg-surface-container-low p-8 rounded-lg border-2 border-transparent hover:border-primary/20 transition-all">
+<div class="flex items-start justify-between mb-8">
+<div>
+<h2 class="text-3xl font-bold mb-2">Sexo</h2>
+<p class="text-on-surface-variant">Características biológicas, anatómicas y fisiológicas.</p>
+</div>
+<div class="bg-primary/10 p-4 rounded-full">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">science</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 bg-surface rounded-xl">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-sm font-medium">Cromosomas (XX, XY, etc.)</span>
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface rounded-xl">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-sm font-medium">Hormonas predominantes</span>
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface rounded-xl">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-sm font-medium">Anatomía reproductiva</span>
+</div>
+</div>
+</div>
+<!-- Illustration Card -->
+<div class="bg-primary-container p-8 rounded-lg text-on-primary-container relative overflow-hidden flex flex-col justify-between h-full">
+<div class="z-10">
+<h3 class="text-xl font-bold mb-4">La Esencia</h3>
+<p class="text-sm opacity-90 leading-relaxed">Entender esta diferencia es el primer paso hacia una sociedad más inclusiva y respetuosa.</p>
+</div>
+<div class="mt-8 flex justify-center z-10">
+<img alt="Abstract shapes representing diversity" class="w-32 h-32 object-contain" data-alt="fluid organic abstract shapes in lavender and teal colors floating on a purple background soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxSksQSv5NPvn_etghnPQNoiBs9x2QTuXe9cxwV3ukjUAj3MtTMT1xNsmFk_phryuIv6VIK0l0_P_9Rk0CfyEAOYYDjM6OsscHN8fYm4MI1OMX30DQ5kwp6GdVOVWcY-lL7j6kDfeHFEyaAnKTijc71FHfyx7cMUk3GK6wJWkWg3o0jOJPswTxkteFBhb5F7yFN2fyKU-9NJ75qDMH2sdVDHW6p_6R-RLcJ4Ex7SrnP_xCj7bMrRnl4zqhqObov26pjGx1VdOe4HA"/>
+</div>
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+<!-- Género Card -->
+<div class="md:col-span-3 bg-surface-container-lowest p-10 rounded-lg shadow-[0px_20px_40px_rgba(74,68,82,0.06)]">
+<div class="flex flex-col md:flex-row gap-12 items-center">
+<div class="flex-1">
+<div class="inline-block px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase rounded-full mb-4 tracking-tighter">Construcción Social</div>
+<h2 class="text-4xl font-bold mb-4">Género</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed mb-6">
+                                El género se refiere a los roles, comportamientos, actividades y atributos que una sociedad determinada considera apropiados para hombres y mujeres. Es una construcción cultural que varía con el tiempo y entre diferentes culturas.
+                            </p>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 bg-surface-container text-on-surface-variant rounded-full text-xs font-semibold">Roles Sociales</span>
+<span class="px-4 py-2 bg-surface-container text-on-surface-variant rounded-full text-xs font-semibold">Expresión Personal</span>
+<span class="px-4 py-2 bg-surface-container text-on-surface-variant rounded-full text-xs font-semibold">Identidad</span>
+</div>
+</div>
+<div class="w-full md:w-1/3 aspect-square bg-slate-100 rounded-lg overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+<img alt="Inclusive human connection" class="w-full h-full object-cover" data-alt="close up of hands with diverse skin tones stacked together in a circle demonstrating unity and shared humanity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqV3-CwwRj5ku4opW-S7BPZbQCwBezDGh_Y1KF-RB5lEcV9tpUWfk6uKYI44knQ_qL-CiC0NA1mm2487uDapdT8FMCKaFwDQWTvRNhQb2ujDk9k6Ob-GQxjioUNF1lbT5tWWXSPp3D97nuyzG3U5gYoUpETvl9fFtWmCEeR167MaeO-1M2V7V5wN0EmSHBKNzLbYeLezmgbX65uWgGOJQyy34LgWaGGzxU1OttAIjv582W7bQ1K8CG1BEnJNWtzq9SL5126-6IX4k"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Navigation Controls -->
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-outline-variant/30">
+<button class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors group">
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<div class="text-left">
+<p class="text-[10px] uppercase font-bold opacity-60">Lección Anterior</p>
+<p class="font-bold">Introducción</p>
+</div>
+</button>
+<div class="flex items-center gap-4">
+<button class="px-8 py-4 bg-surface-container-high text-on-surface-variant font-bold rounded-xl hover:bg-primary/5 transition-all">
+                        Marcar como completado
+                    </button>
+<button class="px-8 py-4 bg-primary text-on-primary font-bold rounded-xl shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all flex items-center gap-2">
+<span>Siguiente Lección</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-end px-4 pb-6 lg:hidden bg-[#fbf9f8]/90 dark:bg-slate-900/90 backdrop-blur-xl font-['Lexend'] text-[10px] font-medium">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#7E57C2] text-white rounded-full p-3 mb-2 shadow-lg" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Aprende</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2" href="#">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+<span>Juega</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span>Simulador</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span>Perfil</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center gap-4 text-center mt-20 py-12 bg-[#fbf9f8] dark:bg-slate-950 font-['Lexend'] text-xs">
+<div class="flex gap-6 mb-2">
+<a class="text-slate-400 hover:text-slate-600 hover:underline transition-all" href="#">Privacidad</a>
+<a class="text-slate-400 hover:text-slate-600 hover:underline transition-all" href="#">Accesibilidad</a>
+<a class="text-slate-400 hover:text-slate-600 hover:underline transition-all" href="#">Términos</a>
+</div>
+<p class="text-slate-400">© 2024 Plurality Education. Espacio Seguro.</p>
+</footer>
+</body></html>

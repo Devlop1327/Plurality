@@ -1,0 +1,408 @@
+================================================================================
+                    🪟 GUÍA DE INSTALACIÓN PARA WINDOWS
+                    Plurality App - Educación en Diversidad
+================================================================================
+
+================================================================================
+⚡ INICIO RÁPIDO (SIN INSTALACIÓN)
+================================================================================
+
+La forma más rápida si no quieres instalar nada:
+
+1. Abre el Explorador de Archivos
+2. Navega a: c:\Users\HinojosaDev\Downloads\Proyectos\Divers-app\stitch\
+3. Busca el archivo: index.html
+4. Haz doble clic en index.html
+5. Se abrirá en tu navegador predeterminado
+6. ¡LISTO! La app está funcionando
+
+Procedimiento detallado:
+┌─────────────────────────────────────────────────────────────────┐
+│ 1. Presiona ⊞ Win (tecla Windows) para abrir el menú           │
+│ 2. Escribe: Explorador de Archivos                            │
+│ 3. Presiona Enter                                              │
+│ 4. Ve a: Descargas > Proyectos > Divers-app > stitch          │
+│ 5. Encuentra: index.html                                       │
+│ 6. Doble clic = ¡Funciona!                                    │
+└─────────────────────────────────────────────────────────────────┘
+
+PROBLEMA: ¿No se abre en el navegador?
+SOLUCIÓN:
+  - Haz clic derecho en index.html
+  - Selecciona "Abrir con"
+  - Elige tu navegador (Chrome, Firefox, Edge, etc)
+  - Clic en "Abrir"
+
+================================================================================
+🖥️ OPCIÓN 2: CON SERVIDOR NODE.JS (Recomendado)
+================================================================================
+
+¿Por qué? Un servidor local es más seguro y completo para desarrollo.
+
+PASO 1: Descargar Node.js
+─────────────────────────
+1. Abre navegador y ve a: https://nodejs.org/
+2. Descarga la versión LTS (Long Term Support)
+3. Ejecuta el instalador
+4. Sigue los pasos (Next, Next, Next, Install)
+5. Reinicia tu computadora
+
+VERIFICAR INSTALACIÓN:
+  1. Presiona ⊞ Win + R
+  2. Escribe: cmd
+  3. Presiona Enter
+  4. En la terminal, escribe: node --version
+  5. Deberías ver algo como: v18.12.0 o superior
+  6. Escribe: npm --version
+  7. Deberías ver algo como: 8.19.2 o superior
+
+PASO 2: Ejecutar el Servidor
+─────────────────────────────
+1. Abre la terminal (cmd o PowerShell)
+   - Presiona ⊞ Win + R
+   - Escribe: cmd
+   - Presiona Enter
+   
+2. Navega a la carpeta del proyecto:
+   ```
+   cd c:\Users\HinojosaDev\Downloads\Proyectos\Divers-app\stitch
+   ```
+   
+3. Ejecuta el servidor:
+   ```
+   npm start
+   ```
+   
+4. Deberías ver:
+   ```
+   🚀 Plurality App servicio en: http://localhost:3000
+   Presiona Ctrl+C para detener el servidor
+   ```
+
+5. Abre tu navegador en:
+   http://localhost:3000
+
+6. ¡App en funcionamiento!
+
+PARAR EL SERVIDOR:
+  - En la terminal, presiona: Ctrl + C
+  - Verás: "^C"
+  - El servidor se detendrá
+
+
+================================================================================
+🐍 OPCIÓN 3: CON PYTHON (Si prefieres)
+================================================================================
+
+Python viene preinstalado en Windows 10+
+
+VERIFICAR INSTALACIÓN:
+─────────────────────
+1. Presiona ⊞ Win + R
+2. Escribe: cmd
+3. Escribe: python --version
+4. Si ves: Python 3.x.x - ¡Listo!
+5. Si no sale nada, descarga desde: https://www.python.org
+
+EJECUTAR SERVIDOR PYTHON:
+────────────────────────
+1. Abre Terminal (cmd o PowerShell)
+2. Ve a la carpeta:
+   ```
+   cd c:\Users\HinojosaDev\Downloads\Proyectos\Divers-app\stitch
+   ```
+
+3. Ejecuta UNA de estas opciones:
+   
+   Python 3 (Recomendado):
+   ```
+   python -m http.server 3000
+   ```
+   
+   Si no funciona, intenta:
+   ```
+   python3 -m http.server 3000
+   ```
+
+4. Deberías ver:
+   ```
+   Serving HTTP on 0.0.0.0 port 3000
+   ```
+
+5. Abre en navegador:
+   http://localhost:3000
+
+6. ¡Funciona!
+
+PARAR EL SERVIDOR:
+  - Presiona: Ctrl + C en la terminal
+
+
+================================================================================
+🌐 ELEGIR EL NAVEGADOR CORRECTO
+================================================================================
+
+NAVEGADORES RECOMENDADOS (en orden):
+1. Google Chrome / Chromium
+2. Mozilla Firefox
+3. Microsoft Edge
+4. Safari (si tienes Mac)
+
+NAVEGADORES NO RECOMENDADOS (legacy):
+✗ Internet Explorer
+✗ Navegadores antiguos (< 5 años)
+
+DESCARGAR NAVEGADORES:
+├─ Chrome: https://www.google.com/intl/es/chrome/
+├─ Firefox: https://www.mozilla.org/es-ES/firefox/
+└─ Edge: https://www.microsoft.com/edge
+
+================================================================================
+🔧 CÓMO ACCEDER A TU APP
+================================================================================
+
+DESDE TU COMPUTADORA:
+─────────────────────
+Si ejecutaste con servidor (http://localhost:3000):
+- http://localhost:3000
+- http://127.0.0.1:3000
+- http://localhost:3000/index.html
+
+Si abriste HTML directo:
+- file:///c:/Users/HinojosaDev/Downloads/Proyectos/Divers-app/stitch/index.html
+
+DESDE OTRA COMPUTADORA EN LA MISMA WIFI:
+─────────────────────────────────────────
+1. Obtén tu IP local (abre cmd y escribe: ipconfig)
+2. Busca "IPv4 Address": algo como 192.168.1.100
+3. Desde otra computadora: http://192.168.1.100:3000
+
+(Solo si ejecutaste con servidor Node o Python)
+
+
+================================================================================
+🐛 SOLUCIÓN DE PROBLEMAS EN WINDOWS
+================================================================================
+
+PROBLEMA 1: "Archivo no encontrado" o "404"
+─────────────────────────────────────────────
+Síntomas: Errores 404 que los archivos no existen
+Soluciones:
+1. Verifica que estés en la carpeta correcta:
+   c:\Users\HinojosaDev\Downloads\Proyectos\Divers-app\stitch\
+2. Si usas servidor, reinicia:
+   Ctrl + C y luego npm start
+3. Limpia el caché: Ctrl + Shift + Delete (en el navegador)
+
+PROBLEMA 2: "Puerto 3000 ya está en uso"
+─────────────────────────────────────────
+Síntomas: "Error: listen EADDRINUSE: address already in use :::3000"
+Soluciones:
+1. Usa otro puerto: npm start 4000
+2. O mata el proceso:
+   - Abre task manager (Ctrl + Shift + Esc)
+   - Busca "Node.js"
+   - Haz clic derecho > "Finalizar tarea"
+   - Reinicia npm start
+
+PROBLEMA 3: "Los datos no se guardan"
+──────────────────────────────────────
+Síntomas: El progreso no persiste entre sesiones
+Soluciones:
+1. Asegúrate que JavaScript esté habilitado
+2. No estés en modo incógnito/privado
+3. Prueba en otro navegador
+4. Borra cookies: Ctrl + Shift + Delete
+5. En opciones browser > Historial > Borrar datos de navegación
+
+PROBLEMA 4: "La app se ve rota (sin estilos)"
+──────────────────────────────────────────────
+Síntomas: Solo ves texto sin colores ni diseño
+Soluciones:
+1. Recarga la página: Ctrl + F5 (refresco completo)
+2. Espera a que cargue Tailwind CSS (desde CDN)
+3. Si persiste, abre DevTools (F12) y mira la consola
+4. Busca errores en rojo
+
+PROBLEMA 5: Los iconos no aparecen
+───────────────────────────────────
+Síntomas: Ves cuadrados grises en lugar de iconos
+Soluciones:
+1. Recarga (Ctrl + F5)
+2. Espera mejor conexión a internet (para cargar Google Fonts)
+3. Los iconos vienen desde CDN, necesitan internet
+
+PROBLEMA 6: Pantalla en blanco
+──────────────────────────────
+Síntomas: No ves nada, pantalla vacía
+Soluciones:
+1. Abre DevTools: F12
+2. Ve a la pestaña "Console"
+3. Busca mensajes de error
+4. Intenta en otro navegador
+5. Recarga (Ctrl + F5)
+
+
+================================================================================
+📋 CHECKLIST DE VERIFICACIÓN
+================================================================================
+
+Antes de usar la app, verifica:
+
+CONFIGURACIÓN:
+☐ Instalaste Node.js (si usas servidor)
+☐ Estás en la carpeta correcta
+☐ El puerto 3000 no está en uso
+☐ JavaScript está habilitado en el navegador
+☐ No estás en modo incógnito
+
+ACCESO:
+☐ La app se abre en el navegador
+☐ ves el logo "Plurality" arriba
+☐ Los botones de navegación funcionan
+☐ El tema oscuro pueden activarse
+
+FUNCIONALIDAD:
+☐ Puedes navegar entre módulos
+☐ El progreso se actualiza
+☐ Los datos se guardan (recarga y verifica)
+☐ Los colores y diseño se ven correctamente
+☐ Los iconos son visibles
+
+Si todo esto funciona, ¡tu app está lista para usar!
+
+
+================================================================================
+📞 COMANDOS ÚTILES (Windows)
+================================================================================
+
+Terminal Basic:
+cd [ruta]           # Cambiar directorio
+dir                 # Listar archivos
+mkdir [nombre]      # Crear carpeta
+del [archivo]       # Borrar archivo
+cls                 # Limpiar pantalla
+exit                # Cerrar terminal
+
+Node.js / NPM:
+npm start           # Iniciar servidor
+node server.js      # Ejecutar directamente
+npm --version       # Ver versión npm
+node --version      # Ver versión Node
+
+Python:
+python --version    # Ver versión
+python -m http.server 3000  # Servidor
+
+Sistema:
+ipconfig           # Ver IP local
+tasklist           # Ver procesos
+taskkill           # Terminar proceso
+
+
+================================================================================
+🎓 INFORMACIÓN TÉCNICA
+================================================================================
+
+Especificaciones recomendadas para Windows:
+├─ Windows 10 o superior
+├─ 500 MB de espacio libre
+├─ Navegador: Chrome, Firefox, Edge
+├─ Node.js 14+ (si usas servidor)
+└─ Conexión a internet (para CDN)
+
+Compatibilidad:
+✅ Windows 10
+✅ Windows 11
+⚠️  Windows 7/8 (navegadores viejos, puede no funcionar)
+
+Navegadores compatibles:
+✅ Chrome 90+
+✅ Firefox 88+
+✅ Edge 90+
+✅ Opera
+⚠️  Safari (en Windows, edición limitada)
+❌ Internet Explorer
+
+================================================================================
+🚀 SIGUIENTES PASOS
+================================================================================
+
+Una vez que la app esté corriendo:
+
+1. EXPLORAR: Haz clic en cada módulo
+2. APRENDER: Lee el contenido educativo
+3. JUGAR: Prueba los diferentes juegos
+4. DECIDIR: Reflexiona en el simulador
+5. EVALUAR: Completa el test final
+6. PERSONALIZAR: Cambia el tema oscuro/claro
+7. COMPROBAR: Verifica que el progreso se guarde
+8. COMPARTIR: Muestra a otros usuarios
+
+Tiempo estimado: 45-60 minutos para completar todo
+
+
+================================================================================
+💡 TIPS Y TRUCOS
+================================================================================
+
+DESARROLLO LOCAL:
+├─ Usa servidor (Node/Python) para mejor experiencia
+├─ Abre DevTools (F12) para depuración
+├─ Usa Ctrl + F5 para refresco completo
+└─ En la consola, puedes ver Storage.getProgress()
+
+CUSTOMIZACIÓN:
+├─ Edita quiz.js para agregar más preguntas
+├─ Modifica colores en el index.html
+├─ Añade nuevos módulos creando nuevos archivos en js/modules/
+└─ Toda la estructura es modular y reutilizable
+
+ALMACENAMIENTO:
+├─ En DevTools > Application > Local Storage
+├─ Puedes ver todos los datos guardados
+├─ Puedes editar valores en vivo
+└─ Usa Storage.resetAll() en la console para limpiar
+
+
+================================================================================
+📞 SOPORTE Y AYUDA
+================================================================================
+
+Si encuentras problemas:
+
+1. Revisa los mensajes de error en la consola (F12)
+2. Compara con la estructura en PROJECT_STRUCTURE.txt
+3. Verifica que todos los archivos estén en su lugar
+4. Lee README.md para más información
+
+Archivos de ayuda:
+├─ QUICK_START.txt - Inicio rápido
+├─ README.md - Documentación completa
+├─ PROJECT_STRUCTURE.txt - Estructura de proyecto
+├─ FLOW_DIAGRAM.txt - Diagramas de flujo
+└─ Este archivo - Guía Windows específica
+
+
+================================================================================
+✨ ¡LISTO PARA USAR!
+================================================================================
+
+Tu aplicación Plurality está completamente funcional en Windows.
+
+Elige tu método preferido:
+1. Sin instalación: Abre index.html directamente (lo más rápido)
+2. Con Node.js: npm start (lo más profesional)
+3. Con Python: python -m http.server 3000 (alternativa)
+
+¡Disfruta aprendiendo sobre género, orientación sexual y diversidad! 🌈
+
+Para cualquier duda, revisa los archivos .txt incluidos.
+
+¡Bienvenido a Plurality! 🎉
+
+================================================================================
+Guía creada: Abril 2026
+Versión: 1.0
+Plataforma: Windows 10/11
+================================================================================

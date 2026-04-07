@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply transition-colors;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.filled-icon {
+  font-variation-settings: 'FILL' 1;
+}
+
+body {
+  font-family: 'Lexend', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.page-transition {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.progress-bar {
+  @apply h-1.5 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full transition-all duration-300;
+}
+
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-lg hover:scale-105;
+}
+
+.button-primary {
+  @apply px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-all duration-200 active:scale-95;
+}
+
+.button-secondary {
+  @apply px-6 py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-900 dark:text-white font-semibold rounded-lg transition-all duration-200 active:scale-95;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 border-2 border-slate-200 dark:border-slate-700 rounded-lg focus:border-purple-500 focus:outline-none transition-colors;
+}

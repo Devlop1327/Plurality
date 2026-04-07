@@ -1,0 +1,42 @@
+# Aplicación Web Educativa: Género, Pluralidad y Diversidad
+
+## Objetivo
+Crear una herramienta interactiva para comprender conceptos fundamentales sobre género y diversidad, evaluar conocimientos y seguir el progreso del usuario.
+
+## Estructura de Pantallas Propuesta
+
+### 1. Home / Dashboard (index.html)
+- Bienvenida personalizada.
+- Resumen de progreso (Barras de carga extraídas de LocalStorage).
+- Tarjetas de acceso a los módulos: "Aprende", "Juega", "Decide", "Evalúate".
+- Selector de modo Claro/Oscuro.
+
+### 2. Módulo Educativo (Explora)
+- Navegación tipo SPA (Single Page Application) controlada por JS.
+- Secciones:
+    - **Género vs Sexo:** Infografías interactivas.
+    - **Identidad de Género:** Definiciones y ejemplos claros.
+    - **Orientación Sexual:** El espectro de la atracción.
+    - **Diversidad e Inclusión:** Glosario y buenas prácticas.
+- Botones "Siguiente" y "Anterior" con transiciones suaves.
+
+### 3. Centro de Juegos (Interactúa)
+- **Quiz Rápido:** Preguntas de 3 opciones con feedback inmediato (Correcto/Incorrecto).
+- **Juego de Emparejamiento:** Arrastrar conceptos a sus definiciones (Drag & Drop).
+- Sistema de puntos acumulativos.
+
+### 4. Simulador de Decisiones (Empatiza)
+- Narrativa basada en escenarios (ej. "Un compañero usa pronombres diferentes, ¿cómo reaccionas?").
+- Selección de opciones con feedback educativo sobre el impacto de cada decisión.
+
+### 5. Evaluación Final y Perfil (Resultados)
+- Test formal de 10 preguntas aleatorias.
+- Cálculo de puntaje final.
+- Visualización de "Logros" (Medallas por completar módulos).
+- Botón para "Reiniciar Progreso".
+
+## Requisitos Técnicos
+- **Vanilla JS:** Manipulación del DOM, eventos, y lógica modular.
+- **LocalStorage:** Persistencia de datos local.
+- **CSS Grid/Flexbox:** Diseño responsive y moderno.
+- **Accesibilidad:** Uso de etiquetas semánticas y contraste adecuado.

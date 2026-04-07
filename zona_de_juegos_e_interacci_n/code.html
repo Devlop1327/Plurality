@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#ffedd6",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#260058",
+                        "on-tertiary-fixed": "#281900",
+                        "surface-container-highest": "#e4e2e1",
+                        "primary-container": "#7e57c2",
+                        "on-primary": "#ffffff",
+                        "outline": "#7b7483",
+                        "surface-variant": "#e4e2e1",
+                        "on-secondary-container": "#006f66",
+                        "secondary": "#006a62",
+                        "surface": "#fbf9f8",
+                        "secondary-container": "#81f3e5",
+                        "tertiary": "#714e00",
+                        "background": "#fbf9f8",
+                        "on-secondary-fixed": "#00201d",
+                        "inverse-surface": "#303030",
+                        "primary-fixed": "#ebdcff",
+                        "on-surface-variant": "#4a4452",
+                        "on-surface": "#1b1c1b",
+                        "surface-bright": "#fbf9f8",
+                        "on-secondary-fixed-variant": "#005049",
+                        "surface-container-high": "#eae8e7",
+                        "surface-container": "#efedec",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#d4bbff",
+                        "surface-dim": "#dbdad9",
+                        "on-primary-container": "#f6ecff",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#916400",
+                        "secondary-fixed-dim": "#66d9cc",
+                        "outline-variant": "#ccc3d3",
+                        "on-primary-fixed-variant": "#572e99",
+                        "surface-tint": "#6f48b2",
+                        "tertiary-fixed": "#ffdeac",
+                        "on-background": "#1b1c1b",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f2f0ef",
+                        "secondary-fixed": "#84f5e8",
+                        "primary": "#653da7",
+                        "surface-container-low": "#f5f3f2",
+                        "primary-fixed-dim": "#d4bbff",
+                        "on-tertiary-fixed-variant": "#604100",
+                        "tertiary-fixed-dim": "#ffba38"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Lexend"],
+                        "label": ["Lexend"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(251, 249, 248, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="bg-[#fbf9f8]/80 dark:bg-slate-900/80 backdrop-blur-md shadow-[0px_20px_40px_rgba(74,68,82,0.06)] docked full-width top-0 sticky z-50 no-border tonal-shift bg-surface-container-low">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold text-[#7E57C2] dark:text-[#b39ddb] font-headline tracking-tight">Plurality</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#7E57C2] transition-colors font-['Plus_Jakarta_Sans'] font-semibold tracking-tight" href="#">Aprende</a>
+<a class="text-[#7E57C2] border-b-2 border-[#7E57C2] pb-1 font-bold font-['Plus_Jakarta_Sans'] tracking-tight" href="#">Juega</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#7E57C2] transition-colors font-['Plus_Jakarta_Sans'] font-semibold tracking-tight" href="#">Evalúate</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-headline font-bold">1,250 PTS</span>
+</div>
+<button class="material-symbols-outlined p-2 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 rounded-full transition-all text-slate-600">dark_mode</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="Portrait of a friendly smiling person with soft natural lighting and a minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW0he65EyxFxaVXTb9XQutwi96RNiEBHhXqFlWyYLiQHWcWKNmAZc3Lf0Lyj9iLcVi8-2ElXzTU7ko2wmQM9P-3AsjzjbqBsOXKLPD5W_FhzVhTz8XMJJVMJzQOW4iUPozEWi39-FfEPYW01n7i6N6W2q_Zapasp-1KHmz3qsr69lAfy2uODO8x2b3HVKDMeefFNEKzSiRpA4iUqREoeszDXDOuOVmNKUQ5jYOe0ge8ongh3y_1Yu73V58tYFDxQpOFWaKnlr9038"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-6 py-12 mb-24">
+<!-- Hero Section Asymmetry -->
+<header class="flex flex-col md:flex-row gap-12 mb-20 items-center">
+<div class="md:w-3/5">
+<span class="bg-primary-fixed text-on-primary-fixed px-4 py-1.5 rounded-full text-xs font-bold font-headline mb-6 inline-block tracking-wider uppercase">Interacción Activa</span>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold text-on-surface leading-tight mb-6">
+                    Explora y <span class="text-primary italic">Conecta</span> conceptos.
+                </h1>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-xl">
+                    Pon a prueba tus conocimientos a través de dinámicas diseñadas para profundizar en la diversidad humana de forma lúdica y segura.
+                </p>
+</div>
+<div class="md:w-2/5 relative">
+<div class="absolute inset-0 bg-secondary-container blur-[100px] opacity-20 -z-10"></div>
+<div class="bg-surface-container-low p-8 rounded-xl border-l-8 border-secondary">
+<h3 class="font-headline font-bold text-xl mb-2 text-secondary">Reto del día</h3>
+<p class="text-on-surface-variant font-body italic">"La identidad no es un destino, es un viaje de autodescubrimiento."</p>
+</div>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- SECTION 1: QUIZ INTERACTIVO -->
+<section class="lg:col-span-7 bg-surface-container-low rounded-lg p-8 md:p-12 relative overflow-hidden">
+<div class="flex justify-between items-start mb-10">
+<div>
+<h2 class="font-headline text-2xl font-bold mb-2">Quiz Rápido</h2>
+<div class="flex gap-2">
+<div class="h-1.5 w-12 bg-primary rounded-full"></div>
+<div class="h-1.5 w-12 bg-surface-container-highest rounded-full"></div>
+<div class="h-1.5 w-12 bg-surface-container-highest rounded-full"></div>
+</div>
+</div>
+<span class="text-sm font-label text-on-surface-variant">Pregunta 1 de 3</span>
+</div>
+<div class="mb-12">
+<p class="font-headline text-2xl font-semibold leading-snug">¿Qué es la identidad de género?</p>
+</div>
+<div class="space-y-4">
+<!-- Option A -->
+<button class="w-full text-left p-6 rounded-lg bg-surface-container-lowest hover:bg-primary-container hover:text-on-primary-container transition-all group border-2 border-transparent focus:border-primary flex justify-between items-center">
+<span class="font-body text-lg">La atracción emocional que sentimos por otras personas.</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+<!-- Option B (The correct one visually for demo) -->
+<button class="w-full text-left p-6 rounded-lg bg-secondary-container/20 border-2 border-secondary text-on-secondary-container transition-all flex justify-between items-center group">
+<span class="font-body text-lg font-semibold">La vivencia interna e individual del género tal como cada persona la siente.</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<!-- Option C -->
+<button class="w-full text-left p-6 rounded-lg bg-surface-container-lowest hover:bg-primary-container hover:text-on-primary-container transition-all group border-2 border-transparent flex justify-between items-center">
+<span class="font-body text-lg">Las características biológicas con las que una persona nace.</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+</div>
+<!-- Floating Feedback Decoration -->
+<div class="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary opacity-10 rounded-full blur-2xl"></div>
+</section>
+<!-- SECTION 2: JUEGO DE EMPAREJAMIENTO -->
+<section class="lg:col-span-5 flex flex-col gap-8">
+<div class="bg-surface-container p-8 rounded-lg flex-grow">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">drag_indicator</span>
+<h2 class="font-headline text-xl font-bold">Emparejamiento</h2>
+</div>
+<p class="text-sm text-on-surface-variant mb-8 font-label">Arrastra los conceptos a su definición correspondiente.</p>
+<div class="grid grid-cols-1 gap-4">
+<!-- Concept & Target Pair 1 -->
+<div class="flex flex-col gap-3">
+<div class="bg-primary-fixed-dim text-on-primary-fixed p-4 rounded-lg font-bold text-center cursor-grab active:cursor-grabbing border-2 border-dashed border-primary/30">
+                                No Binario
+                            </div>
+<div class="bg-surface-container-highest p-4 rounded-lg text-sm text-on-surface-variant min-h-[80px] flex items-center justify-center text-center border-2 border-transparent">
+                                Personas cuya identidad no se ajusta a las categorías de hombre o mujer.
+                            </div>
+</div>
+<!-- Concept & Target Pair 2 -->
+<div class="flex flex-col gap-3">
+<div class="bg-tertiary-fixed-dim text-on-tertiary-fixed p-4 rounded-lg font-bold text-center cursor-grab border-2 border-dashed border-tertiary/30">
+                                Cisgénero
+                            </div>
+<div class="bg-surface-container-low border-2 border-primary/20 p-4 rounded-lg text-sm text-on-surface-variant min-h-[80px] flex items-center justify-center text-center">
+                                Identidad que coincide con el sexo asignado al nacer.
+                            </div>
+</div>
+<button class="mt-4 py-4 px-6 bg-primary text-on-primary font-headline font-bold rounded-xl hover:bg-primary-container transition-colors shadow-lg shadow-primary/20">
+                            Validar Respuestas
+                        </button>
+</div>
+</div>
+<!-- Progress/Stats Card -->
+<div class="bg-secondary p-8 rounded-lg text-on-secondary flex justify-between items-center overflow-hidden relative">
+<div class="relative z-10">
+<p class="font-label opacity-80 text-xs uppercase tracking-widest mb-1">Tu racha</p>
+<h3 class="text-3xl font-headline font-black">5 Días</h3>
+</div>
+<span class="material-symbols-outlined text-6xl opacity-30 absolute -right-2 top-2 rotate-12" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<div class="relative z-10 text-right">
+<p class="font-label opacity-80 text-xs uppercase tracking-widest mb-1">Nivel</p>
+<h3 class="text-xl font-headline font-bold">Explorador</h3>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Section (Simplified for interaction flow) -->
+<footer class="mt-32 w-full flex flex-col items-center gap-4 text-center">
+<p class="font-['Lexend'] text-xs text-slate-400">© 2024 Plurality Education. Espacio Seguro.</p>
+<div class="flex gap-6">
+<a class="text-slate-400 hover:text-slate-600 font-['Lexend'] text-xs transition-all hover:underline" href="#">Privacidad</a>
+<a class="text-slate-400 hover:text-slate-600 font-['Lexend'] text-xs transition-all hover:underline" href="#">Accesibilidad</a>
+<a class="text-slate-400 hover:text-slate-600 font-['Lexend'] text-xs transition-all hover:underline" href="#">Términos</a>
+</div>
+</footer>
+</main>
+<!-- SideNavBar (Hidden on desktop, logic as per blueprint) -->
+<aside class="hidden lg:flex flex-col w-64 h-screen p-6 fixed left-0 top-0 bg-[#fbf9f8] dark:bg-slate-900 tonal-shift using surface-container-low border-r border-surface-container-high z-40 pt-24">
+<div class="mb-10">
+<h3 class="font-headline font-black text-xl text-[#7E57C2]">Módulos</h3>
+<p class="text-xs text-slate-500 font-body">Tu camino de aprendizaje</p>
+</div>
+<nav class="space-y-2 mb-10">
+<a class="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-transform duration-300 hover:translate-x-1 rounded-xl" href="#">
+<span class="material-symbols-outlined">diversity_3</span>
+<span class="font-['Lexend'] text-sm">Sexo vs Género</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-transform duration-300 hover:translate-x-1 rounded-xl" href="#">
+<span class="material-symbols-outlined">fingerprint</span>
+<span class="font-['Lexend'] text-sm">Identidad</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-transform duration-300 hover:translate-x-1 rounded-xl" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-['Lexend'] text-sm">Orientación</span>
+</a>
+<a class="flex items-center gap-3 p-3 bg-[#7E57C2]/10 text-[#7E57C2] font-bold rounded-xl" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-['Lexend'] text-sm">Diversidad</span>
+</a>
+</nav>
+<button class="mt-auto bg-primary text-on-primary py-3 px-4 rounded-xl font-headline font-bold text-sm shadow-md hover:scale-[0.98] transition-all">
+            Ver Progreso
+        </button>
+</aside>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-end px-4 pb-6 lg:hidden bg-[#fbf9f8]/90 dark:bg-slate-900/90 backdrop-blur-xl no-border tonal-shift shadow-[0px_-10px_30px_rgba(0,0,0,0.05)]">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 font-['Lexend'] text-[10px] font-medium">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 font-['Lexend'] text-[10px] font-medium">
+<span class="material-symbols-outlined">menu_book</span>
+<span>Aprende</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#7E57C2] text-white rounded-full p-3 mb-2 shadow-lg font-['Lexend'] text-[10px] font-medium scale-110">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">extension</span>
+<span>Juega</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 font-['Lexend'] text-[10px] font-medium">
+<span class="material-symbols-outlined">psychology</span>
+<span>Simulador</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 font-['Lexend'] text-[10px] font-medium">
+<span class="material-symbols-outlined">account_circle</span>
+<span>Perfil</span>
+</div>
+</nav>
+</body></html>

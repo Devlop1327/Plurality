@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Profile | Plurality Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#653da7",
+                        "on-primary-container": "#f6ecff",
+                        "secondary-container": "#81f3e5",
+                        "on-surface": "#1b1c1b",
+                        "on-primary-fixed-variant": "#572e99",
+                        "on-tertiary-container": "#ffedd6",
+                        "primary-fixed": "#ebdcff",
+                        "surface-bright": "#fbf9f8",
+                        "inverse-on-surface": "#f2f0ef",
+                        "tertiary-container": "#916400",
+                        "surface": "#fbf9f8",
+                        "surface-dim": "#dbdad9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#00201d",
+                        "secondary-fixed-dim": "#66d9cc",
+                        "surface-tint": "#6f48b2",
+                        "surface-variant": "#e4e2e1",
+                        "primary-container": "#7e57c2",
+                        "secondary": "#006a62",
+                        "on-secondary-fixed-variant": "#005049",
+                        "on-background": "#1b1c1b",
+                        "surface-container": "#efedec",
+                        "outline-variant": "#ccc3d3",
+                        "background": "#fbf9f8",
+                        "surface-container-low": "#f5f3f2",
+                        "surface-container-high": "#eae8e7",
+                        "on-secondary-container": "#006f66",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#d4bbff",
+                        "tertiary-fixed-dim": "#ffba38",
+                        "tertiary-fixed": "#ffdeac",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#84f5e8",
+                        "on-surface-variant": "#4a4452",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#d4bbff",
+                        "surface-container-highest": "#e4e2e1",
+                        "on-tertiary-fixed-variant": "#604100",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#281900",
+                        "tertiary": "#714e00",
+                        "on-error": "#ffffff",
+                        "outline": "#7b7483",
+                        "on-primary-fixed": "#260058",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Lexend"],
+                        "label": ["Lexend"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Lexend', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<nav class="fixed top-0 w-full z-50 bg-[#fbf9f8]/80 dark:bg-slate-900/80 backdrop-blur-md shadow-[0px_20px_40px_rgba(74,68,82,0.06)] flex justify-between items-center px-8 h-20 w-full max-w-none">
+<div class="text-2xl font-bold text-[#7E57C2] dark:text-[#b39ddb] brand-font">Plurality Archive</div>
+<div class="hidden md:flex items-center gap-8 font-['Plus_Jakarta_Sans'] font-semibold tracking-tight">
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#7E57C2] transition-colors duration-200" href="#">Modules</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#7E57C2] transition-colors duration-200" href="#">Resources</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#7E57C2] transition-colors duration-200" href="#">Safe Space</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-slate-600">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container border-2 border-primary ring-2 ring-primary/20">
+<span class="material-symbols-outlined" data-weight="fill">account_circle</span>
+</div>
+</div>
+</nav>
+<div class="flex pt-20">
+<aside class="h-screen w-72 fixed left-0 top-20 bg-[#fbf9f8] dark:bg-slate-950 flex flex-col p-6 gap-2 font-['Lexend'] text-sm leading-relaxed hidden lg:flex">
+<div class="mb-6 p-4 rounded-2xl bg-surface-container-low">
+<p class="text-xs uppercase tracking-widest text-slate-400 mb-1">Learning Journey</p>
+<h4 class="font-bold text-primary">65% Complete</h4>
+<div class="w-full bg-secondary-container/30 h-2 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">fingerprint</span> Identity Basics
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">palette</span> Spectrum Literacy
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">translate</span> Inclusive Language
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">public</span> Global Narratives
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">diversity_1</span> Community Allyship
+                </a>
+</nav>
+<button class="mt-auto bg-primary text-on-primary py-4 rounded-xl font-bold hover:bg-primary-container transition-all active:scale-95">
+                Continue Learning
+            </button>
+</aside>
+<main class="flex-1 lg:ml-72 p-8 md:p-12 max-w-7xl">
+<section class="relative overflow-hidden rounded-lg bg-surface-container-lowest p-8 md:p-12 mb-12 border-outline-variant/10 shadow-sm">
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
+<div class="relative">
+<img alt="Profile Avatar" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-primary-fixed shadow-lg" data-alt="close-up portrait of a diverse person with a friendly expression, soft natural indoor lighting, professional photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM9pjDUAsvpMw2bBOm4sIF3-2vdy-shCn90rxoFszVM4lex7pP-yDCbeL8B6UV4GESkG9Fk65tLzuGAevBr8km-jlI3Sztuf5mLDTNEcx71vQrh0irbomh9baQXVI2p7OXWKGQtjP_qZEwzVhtzMM593tAkJyQpBwXse2hK5J0kQQVZ2XOd1A1D9lODtra9K1K1UuzTpPylhEwaJ9H_OFkr-s6DDZ3zYLXQjOpA6xlhROVrdYnuSSpN8QdZfA910Th-xVMolkgg2c"/>
+<div class="absolute -bottom-2 -right-2 bg-secondary-fixed text-on-secondary-fixed px-4 py-1 rounded-full text-xs font-bold shadow-md">LVL 24</div>
+</div>
+<div class="text-center md:text-left">
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-2">Elena Rodriguez</h1>
+<p class="text-on-surface-variant font-medium flex items-center justify-center md:justify-start gap-2">
+<span class="material-symbols-outlined text-primary">verified</span>
+                            Diversity &amp; Inclusion Specialist
+                        </p>
+<div class="flex flex-wrap gap-4 mt-6 justify-center md:justify-start">
+<div class="bg-surface-container-high px-6 py-3 rounded-2xl">
+<span class="block text-xs uppercase tracking-widest text-on-surface-variant mb-1">Total Experience</span>
+<span class="text-2xl font-bold text-primary">12,450 XP</span>
+</div>
+<div class="bg-surface-container-high px-6 py-3 rounded-2xl">
+<span class="block text-xs uppercase tracking-widest text-on-surface-variant mb-1">Certificates</span>
+<span class="text-2xl font-bold text-primary">03</span>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary-fixed/20 to-transparent pointer-events-none"></div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+<div class="lg:col-span-2 space-y-12">
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold tracking-tight">Badge Gallery</h2>
+<button class="text-primary font-bold text-sm hover:underline">View All</button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+<div class="bg-surface-container-low p-6 rounded-lg text-center flex flex-col items-center group hover:bg-surface-container-high transition-all">
+<div class="w-20 h-20 rounded-full bg-primary-fixed flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-4xl" data-weight="fill">workspace_premium</span>
+</div>
+<h3 class="font-bold text-on-surface mb-1">Aliado Pro</h3>
+<p class="text-xs text-on-surface-variant">Active allyship excellence</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg text-center flex flex-col items-center group hover:bg-surface-container-high transition-all">
+<div class="w-20 h-20 rounded-full bg-secondary-fixed flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary text-4xl" data-weight="fill">psychology_alt</span>
+</div>
+<h3 class="font-bold text-on-surface mb-1">Experto en Identidad</h3>
+<p class="text-xs text-on-surface-variant">Deep theoretical mastery</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg text-center flex flex-col items-center group hover:bg-surface-container-high transition-all">
+<div class="w-20 h-20 rounded-full bg-tertiary-fixed flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-tertiary text-4xl" data-weight="fill">shield_person</span>
+</div>
+<h3 class="font-bold text-on-surface mb-1">Guardián de Inclusión</h3>
+<p class="text-xs text-on-surface-variant">Safety protocol specialist</p>
+</div>
+<div class="bg-surface-container-low/50 p-6 rounded-lg text-center flex flex-col items-center opacity-60">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-outline text-4xl">lock</span>
+</div>
+<h3 class="font-bold text-on-surface mb-1">Líder Global</h3>
+<p class="text-xs text-on-surface-variant">Pending completion</p>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-2xl font-bold tracking-tight mb-8">Learning Statistics</h2>
+<div class="space-y-6">
+<div class="p-6 bg-surface-container-lowest rounded-lg">
+<div class="flex justify-between mb-4">
+<span class="font-bold text-on-surface">Identity Basics</span>
+<span class="text-primary font-bold">100%</span>
+</div>
+<div class="w-full bg-surface-container-high h-4 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<div class="p-6 bg-surface-container-lowest rounded-lg">
+<div class="flex justify-between mb-4">
+<span class="font-bold text-on-surface">Spectrum Literacy</span>
+<span class="text-primary font-bold">82%</span>
+</div>
+<div class="w-full bg-surface-container-high h-4 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 82%"></div>
+</div>
+</div>
+<div class="p-6 bg-surface-container-lowest rounded-lg">
+<div class="flex justify-between mb-4">
+<span class="font-bold text-on-surface">Inclusive Language</span>
+<span class="text-primary font-bold">45%</span>
+</div>
+<div class="w-full bg-surface-container-high h-4 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 45%"></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="space-y-8">
+<div class="bg-primary p-8 rounded-lg text-on-primary">
+<span class="material-symbols-outlined text-4xl mb-4" data-weight="fill">card_membership</span>
+<h3 class="text-2xl font-bold mb-4">Course Certificate</h3>
+<p class="text-sm text-on-primary-container mb-8 leading-relaxed">
+                            Complete all 5 modules and pass the final assessment to receive your official Plurality Archive Accreditation.
+                        </p>
+<button class="w-full py-4 px-6 bg-surface text-primary font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-on-primary-container transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+<span class="material-symbols-outlined">download</span>
+                            Download Certificate
+                        </button>
+<p class="text-[10px] uppercase tracking-widest text-center mt-4 opacity-70">Requires 100% Completion</p>
+</div>
+<div class="bg-surface-container-high p-8 rounded-lg">
+<h4 class="font-bold text-on-surface mb-6">Recent Activity</h4>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-2 h-2 rounded-full bg-secondary mt-2"></div>
+<div>
+<p class="text-sm font-bold">Completed Assessment</p>
+<p class="text-xs text-on-surface-variant">Spectrum Literacy Module</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase">2 hours ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-2 h-2 rounded-full bg-primary mt-2"></div>
+<div>
+<p class="text-sm font-bold">Earned "Aliado Pro" Badge</p>
+<p class="text-xs text-on-surface-variant">Consistent participation</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase">Yesterday</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<footer class="w-full mt-24 bg-[#fbf9f8] dark:bg-slate-900 border-t border-outline-variant/10">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-10 gap-6 w-full max-w-7xl mx-auto">
+<div class="text-lg font-bold text-[#7E57C2] brand-font">The Living Archive</div>
+<div class="flex flex-wrap justify-center gap-8 font-['Lexend'] text-xs uppercase tracking-widest text-slate-500">
+<a class="hover:text-slate-800 dark:hover:text-slate-200 underline decoration-2 underline-offset-4" href="#">Accessibility Statement</a>
+<a class="hover:text-slate-800 dark:hover:text-slate-200 underline decoration-2 underline-offset-4" href="#">Privacy Policy</a>
+<a class="hover:text-slate-800 dark:hover:text-slate-200 underline decoration-2 underline-offset-4" href="#">Contact Support</a>
+<a class="hover:text-slate-800 dark:hover:text-slate-200 underline decoration-2 underline-offset-4" href="#">Safe Mode</a>
+</div>
+<p class="text-[10px] text-slate-400 font-['Lexend'] uppercase tracking-widest">© 2024 The Living Archive. Built for every spectrum.</p>
+</div>
+</footer>
+</body></html>

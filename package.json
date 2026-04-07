@@ -1,0 +1,30 @@
+{
+  "name": "plurality-app",
+  "version": "1.0.0",
+  "description": "Aplicación educativa sobre género, orientación sexual y diversidad",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "concurrently \"npm run css:watch\" \"node server.js\"",
+    "css:build": "tailwindcss -i css/input.css -o css/style.css",
+    "css:watch": "tailwindcss -i css/input.css -o css/style.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.0",
+    "postcss": "^8.4.31",
+    "@tailwindcss/forms": "^0.5.6",
+    "concurrently": "^8.2.1"
+  },
+  "keywords": [
+    "educación",
+    "género",
+    "diversidad",
+    "inclusión",
+    "LGBTQ+"
+  ],
+  "author": "Plurality Team",
+  "license": "All Rights Reserved",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
