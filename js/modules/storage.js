@@ -15,7 +15,15 @@ const Storage = {
                 juegos: 0,
                 simulador: 0,
                 evaluacion: 0,
-                totalPoints: 0
+                totalPoints: 0,
+                gamePoints: {
+                    quiz: 0,
+                    trivia: 0,
+                    quiensoy: 0,
+                    matching: 0,
+                    categorizacion: 0,
+                    verdaderofalso: 0
+                }
             });
         }
         // Asegurar que dark mode está desactivado por defecto
@@ -57,12 +65,35 @@ const Storage = {
         return score ? JSON.parse(score) : { points: 0, level: 1 };
     },
 
-    addGamePoints(points) {
+    addGamePoints(points, gameType = 'general') {
+        const progress = this.getProgress();
+        progress.totalPoints = (progress.totalPoints || 0) + points;
+
+        // Track points by game type
+        if (!progress.gamePoints) {
+            progress.gamePoints = {
+                quiz: 0,
+                trivia: 0,
+                quiensoy: 0,
+                matching: 0,
+                categorizacion: 0,
+                verdaderofalso: 0
+            };
+        }
+
+        if (gameType && progress.gamePoints.hasOwnProperty(gameType)) {
+            progress.gamePoints[gameType] += points;
+        }
+
+        this.saveProgress(progress);
+
+        // Also save to game score for level system
         const score = this.getGameScore();
         score.points += points;
         score.level = Math.floor(score.points / 50) + 1;
         this.saveGameScore(score);
-        return score;
+
+        return progress;
     },
 
     // Quiz Results

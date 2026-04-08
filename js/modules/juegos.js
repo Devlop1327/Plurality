@@ -123,41 +123,81 @@ const Juegos = {
     },
 
     renderMatching() {
+        const connections = this.matchingDataSet || quizData.conexionesConceptos[0].connections;
+        const leftItems = connections.map(c => c.left);
+        const allFilled = Object.keys(this.matchedPairs).length === connections.length;
+
         return `
-        <div class="page-transition max-w-2xl mx-auto px-8 py-12">
-            <h1 class="text-3xl font-headline font-bold mb-2">Emparejamiento</h1>
-            <p class="text-slate-600 dark:text-slate-400 mb-8">Arrastra los conceptos a sus definiciones correctas</p>
+        <div class="page-transition max-w-4xl mx-auto px-8 py-12">
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold mb-2 text-slate-900 dark:text-white">Emparejamiento</h1>
+                <p class="text-slate-600 dark:text-slate-400 mb-4">Arrastra cada concepto a su definición correcta</p>
+                <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                    <div class="bg-purple-600 h-2 rounded-full transition-all" style="width: ${Object.keys(this.matchedPairs).length / connections.length * 100}%"></div>
+                </div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">${Object.keys(this.matchedPairs).length}/${connections.length} parejas emparejadas</p>
+            </div>
 
             <div class="grid md:grid-cols-2 gap-8 mb-8">
-                <!-- Conceptos -->
-                <div class="space-y-4">
-                    <h3 class="font-semibold text-lg mb-4">Conceptos</h3>
-                    ${this.matchingPairs.conceptos.map(item => `
-                        <div class="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700 cursor-move hover:shadow-md transition-all"
-                             draggable="true"
-                             ondragstart="Juegos.dragStart(event, ${item.id})">
-                            <span class="font-semibold">${item.term}</span>
-                        </div>
-                    `).join('')}
+                <!-- Left Column: Items to Drag -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4 text-slate-900 dark:text-white">Conceptos</h3>
+                    <div class="space-y-3">
+                        ${leftItems.map(item => `
+                            <div class="bg-gradient-to-r from-purple-100 to-purple-50 dark:from-purple-900/30 dark:to-purple-800/20 rounded-lg p-4 border-2 border-purple-300 dark:border-purple-600 cursor-move hover:shadow-lg transition-all transform hover:scale-105"
+                                 draggable="true"
+                                 ondragstart="Juegos.dragStart(event, '${item}')">
+                                <span class="font-semibold text-slate-900 dark:text-white">${item}</span>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
 
-                <!-- Definiciones -->
-                <div class="space-y-4">
-                    <h3 class="font-semibold text-lg mb-4">Definiciones</h3>
-                    ${this.matchingPairs.conceptos.map((item, idx) => `
-                        <div class="bg-white dark:bg-slate-800 rounded-lg p-4 border-2 border-dashed border-outline/30 dark:border-slate-700 min-h-20 transition-all"
-                             ondragover="event.preventDefault()"
-                             ondrop="Juegos.dropItem(event, ${item.id})">
-                            <span class="text-slate-600 dark:text-slate-400">${item.definition}</span>
-                        </div>
-                    `).join('')}
+                <!-- Right Column: Drop Zones -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4 text-slate-900 dark:text-white">Definiciones</h3>
+                    <div class="space-y-3">
+                        ${connections.map(conn => {
+            const droppedItem = this.matchedPairs[conn.right];
+            return `
+                                <div class="rounded-lg p-4 border-2 transition-all min-h-20 flex flex-col justify-center ${droppedItem
+                    ? 'bg-slate-100 dark:bg-slate-700 border-slate-400 dark:border-slate-600'
+                    : 'bg-white dark:bg-slate-800 border-dashed border-slate-300 dark:border-slate-600'
+                }"
+                                     ondragover="event.preventDefault()"
+                                     ondrop="Juegos.dropMatching(event, '${conn.right}', '${conn.left}')">
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Definición:</p>
+                                    <p class="text-slate-700 dark:text-slate-300 font-semibold text-sm">${conn.right}</p>
+                                    ${droppedItem ? `
+                                        <div class="mt-3 pt-3 border-t border-slate-400 dark:border-slate-600">
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Concepto:</p>
+                                            <p class="text-slate-900 dark:text-white font-bold">${droppedItem}</p>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `;
+        }).join('')}
+                    </div>
                 </div>
             </div>
 
-            <button onclick="Juegos.backToMenu()" class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 hover:shadow-md transition-all">
-                <span class="material-symbols-outlined text-xl">arrow_back</span>
-                Volver al Menú
-            </button>
+            <div class="flex gap-4 justify-center">
+                <button onclick="Juegos.backToMenu()" class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+                    <span class="material-symbols-outlined text-xl">arrow_back</span>
+                    Volver al Menú
+                </button>
+                ${allFilled ? `
+                    <button onclick="Juegos.showResultsMatching()" class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold bg-green-600 text-white hover:bg-green-700 transition">
+                        <span class="material-symbols-outlined text-xl">check_circle</span>
+                        Ver Resultados
+                    </button>
+                ` : `
+                    <button disabled class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold bg-gray-400 text-white cursor-not-allowed opacity-50">
+                        <span class="material-symbols-outlined text-xl">check_circle</span>
+                        Ver Resultados (${Object.keys(this.matchedPairs).length}/${connections.length})
+                    </button>
+                `}
+            </div>
         </div>
         `;
     },
@@ -436,6 +476,17 @@ const Juegos = {
 
     startMatching() {
         this.gameType = 'matching';
+        this.currentQuestionIdx = 0;
+        this.score = 0;
+        this.correctAnswers = 0;
+        let connections = [...quizData.conexionesConceptos[0].connections];
+        // Shuffle using Fisher-Yates algorithm
+        for (let i = connections.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [connections[i], connections[j]] = [connections[j], connections[i]];
+        }
+        this.matchingDataSet = connections;
+        this.matchedPairs = {};
         this.refresh();
     },
 
@@ -493,7 +544,7 @@ const Juegos = {
         const total = quizData.verdaderoFalso.length;
         const percentage = Math.round((this.correctAnswers / total) * 100);
 
-        Storage.addGamePoints(this.score);
+        Storage.addGamePoints(this.score, 'verdaderofalso');
         Storage.updateModuleProgress('juegos', Math.min(Storage.getProgress().juegos + 25, 100));
 
         const html = `
@@ -525,17 +576,17 @@ const Juegos = {
         const total = quizData.gameQuizzes.length;
         const percentage = Math.round((this.correctAnswers / total) * 100);
 
-        Storage.addGamePoints(this.score);
+        Storage.addGamePoints(this.score, 'quiz');
         Storage.updateModuleProgress('juegos', Math.min(Storage.getProgress().juegos + 25, 100));
 
         const html = `
         <div class="page-transition max-w-2xl mx-auto px-8 py-12 text-center">
-            <div class="bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-12 mb-8">
-                <span class="material-symbols-outlined text-6xl text-primary mb-4">celebration</span>
-                <h1 class="text-4xl font-headline font-bold mb-4">¡Completado!</h1>
-                <p class="text-3xl font-bold text-primary mb-2">${percentage}%</p>
+            <div class="bg-gradient-to-br from-purple-100 to-purple-50 dark:from-purple-900/30 dark:to-purple-800/20 rounded-2xl p-12 mb-8">
+                <span class="material-symbols-outlined text-6xl text-purple-600 mb-4 block">celebration</span>
+                <h1 class="text-4xl font-bold mb-4 text-slate-900 dark:text-white">¡Quiz Completado!</h1>
+                <p class="text-3xl font-bold text-purple-600 mb-2">${percentage}%</p>
                 <p class="text-lg text-slate-600 dark:text-slate-400">${this.correctAnswers}/${total} respuestas correctas</p>
-                <p class="text-2xl font-bold text-secondary mt-4">+${this.score} puntos</p>
+                <p class="text-2xl font-bold text-slate-900 dark:text-white mt-4">+${this.score} puntos</p>
             </div>
 
             <div class="space-y-4">
@@ -568,15 +619,104 @@ const Juegos = {
         }
     },
 
-    dragStart(e, id) {
-        e.dataTransfer.setData('conceptId', id);
+    dragStart(event, conceptName) {
+        event.dataTransfer.effectAllowed = 'copy';
+        event.dataTransfer.setData('text/plain', conceptName);
     },
 
-    dropItem(e, definitionId) {
-        e.preventDefault();
-        const conceptId = parseInt(e.dataTransfer.getData('conceptId'));
-        alert('¡Emparejado! Concepto con definición');
-        // In a full implementation, this would validate and track matches
+    dropMatching(event, definition, conceptName) {
+        event.preventDefault();
+        const draggedConcept = event.dataTransfer.getData('text/plain');
+
+        // Check if this author/concept is already placed elsewhere
+        const alreadyPlaced = Object.values(this.matchedPairs).includes(draggedConcept);
+
+        if (alreadyPlaced) {
+            // Count how many times this author/concept appears in the original data
+            const occurrences = this.matchingDataSet.filter(c => c.left === draggedConcept).length;
+
+            // Only allow if there are multiple occurrences
+            if (occurrences === 1) {
+                // Don't allow placement
+                return;
+            }
+        }
+
+        // If we get here, allow the placement
+        this.matchedPairs[definition] = draggedConcept;
+        this.refresh();
+    },
+
+    showResultsMatching() {
+        const connections = this.matchingDataSet || quizData.conexionesConceptos[0].connections;
+        let correctCount = 0;
+        const results = [];
+
+        // Validar parejas
+        connections.forEach(conn => {
+            const droppedValue = this.matchedPairs[conn.right];
+            const isCorrect = droppedValue === conn.left;
+            if (isCorrect) correctCount++;
+            results.push({ left: conn.left, right: conn.right, dropped: droppedValue, isCorrect });
+        });
+
+        this.correctAnswers = correctCount;
+        this.score = correctCount * 20;
+        const total = connections.length;
+        const percentage = Math.round((correctCount / total) * 100);
+
+        Storage.addGamePoints(this.score, 'matching');
+        Storage.updateModuleProgress('juegos', Math.min(Storage.getProgress().juegos + 25, 100));
+
+        const html = `
+        <div class="page-transition max-w-4xl mx-auto px-8 py-12">
+            <div class="text-center mb-12">
+                <div class="bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/30 dark:to-green-800/20 rounded-2xl p-12 mb-8">
+                    <span class="material-symbols-outlined text-6xl text-green-600 mb-4 block">celebration</span>
+                    <h1 class="text-4xl font-bold mb-4 text-slate-900 dark:text-white">¡Emparejamiento Completado!</h1>
+                    <p class="text-3xl font-bold text-green-600 mb-2">${percentage}%</p>
+                    <p class="text-lg text-slate-600 dark:text-slate-400">${correctCount}/${total} parejas correctas</p>
+                    <p class="text-2xl font-bold text-slate-900 dark:text-white mt-4">+${this.score} puntos</p>
+                </div>
+            </div>
+
+            <!-- Detailed Results -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Detalles de Parejas</h2>
+                <div class="space-y-4">
+                    ${results.map(r => `
+                        <div class="flex items-start gap-4 p-4 rounded-lg border-2 transition-all ${r.isCorrect
+                ? 'bg-green-50 dark:bg-green-900/20 border-green-500 dark:border-green-600'
+                : 'bg-red-50 dark:bg-red-900/20 border-red-500 dark:border-red-600'
+            }">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="font-semibold text-slate-900 dark:text-white">${r.left}</span>
+                                    ${r.isCorrect
+                ? '<span class="material-symbols-outlined text-green-600 text-lg">check_circle</span>'
+                : '<span class="material-symbols-outlined text-red-600 text-lg">cancel</span>'}
+                                </div>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Correcto: <strong>${r.right}</strong></p>
+                                ${!r.isCorrect ? `<p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Tu respuesta: <strong>${r.dropped || 'Vacío'}</strong></p>` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button onclick="Juegos.startMatching()" class="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-all hover:shadow-lg">
+                    <span class="material-symbols-outlined text-xl">replay</span>
+                    Intentar de Nuevo
+                </button>
+                <button onclick="Juegos.gameType = 'menu'; Juegos.refresh()" class="w-full flex items-center justify-center gap-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-white px-6 py-3 rounded-full font-semibold transition-all hover:shadow-lg">
+                    <span class="material-symbols-outlined text-xl">arrow_back</span>
+                    Volver al Menú
+                </button>
+            </div>
+        </div>
+        `;
+        document.getElementById('app-container').innerHTML = html;
     },
 
     backToMenu() {
@@ -621,24 +761,29 @@ const Juegos = {
         const total = quizData.triviaRapido.length;
         const percentage = Math.round((this.correctAnswers / total) * 100);
 
-        Storage.addGamePoints(this.score);
+        Storage.addGamePoints(this.score, 'trivia');
+        Storage.updateModuleProgress('juegos', Math.min(Storage.getProgress().juegos + 25, 100));
 
         const html = `
         <div class="page-transition max-w-2xl mx-auto px-8 py-12 text-center">
             <div class="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/30 dark:to-blue-800/20 rounded-2xl p-12 mb-8">
                 <span class="material-symbols-outlined text-6xl text-blue-600 mb-4 block">celebration</span>
-                <h1 class="text-4xl font-bold mb-4 text-slate-900 dark:text-white">¡Trivia Completado!</h1>
+                <h1 class="text-4xl font-bold mb-4 text-slate-900 dark:text-white">¡Trivia Completada!</h1>
                 <p class="text-3xl font-bold text-blue-600 mb-2">${percentage}%</p>
                 <p class="text-lg text-slate-600 dark:text-slate-400">${this.correctAnswers}/${total} respuestas correctas</p>
                 <p class="text-2xl font-bold text-slate-900 dark:text-white mt-4">+${this.score} puntos</p>
             </div>
 
-            <button onclick="Juegos.startTriviRapido()" class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 mb-4 transition">
-                <span class="material-symbols-outlined">replay</span> Intentar de Nuevo
-            </button>
-            <button onclick="Juegos.gameType = 'menu'; Juegos.refresh()" class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 transition">
-                <span class="material-symbols-outlined">arrow_back</span> Volver al Menú
-            </button>
+            <div class="space-y-4">
+                <button onclick="Juegos.startTriviRapido()" class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all hover:shadow-lg">
+                    <span class="material-symbols-outlined text-xl">replay</span>
+                    Intentar de Nuevo
+                </button>
+                <button onclick="Juegos.gameType = 'menu'; Juegos.refresh()" class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 hover:shadow-md transition-all">
+                    <span class="material-symbols-outlined text-xl">arrow_back</span>
+                    Volver al Menú
+                </button>
+            </div>
         </div>
         `;
         document.getElementById('app-container').innerHTML = html;
@@ -648,7 +793,8 @@ const Juegos = {
         const total = quizData.quienSoy.length;
         const percentage = Math.round((this.correctAnswers / total) * 100);
 
-        Storage.addGamePoints(this.score);
+        Storage.addGamePoints(this.score, 'quiensoy');
+        Storage.updateModuleProgress('juegos', Math.min(Storage.getProgress().juegos + 25, 100));
 
         const html = `
         <div class="page-transition max-w-2xl mx-auto px-8 py-12 text-center">
@@ -660,12 +806,16 @@ const Juegos = {
                 <p class="text-2xl font-bold text-slate-900 dark:text-white mt-4">+${this.score} puntos</p>
             </div>
 
-            <button onclick="Juegos.startQuienSoy()" class="w-full flex items-center justify-center gap-2 bg-pink-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-700 mb-4 transition">
-                <span class="material-symbols-outlined">replay</span> Intentar de Nuevo
-            </button>
-            <button onclick="Juegos.gameType = 'menu'; Juegos.refresh()" class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 transition">
-                <span class="material-symbols-outlined">arrow_back</span> Volver al Menú
-            </button>
+            <div class="space-y-4">
+                <button onclick="Juegos.startQuienSoy()" class="w-full flex items-center justify-center gap-2 bg-pink-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-700 transition-all hover:shadow-lg">
+                    <span class="material-symbols-outlined text-xl">replay</span>
+                    Intentar de Nuevo
+                </button>
+                <button onclick="Juegos.gameType = 'menu'; Juegos.refresh()" class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 hover:shadow-md transition-all">
+                    <span class="material-symbols-outlined text-xl">arrow_back</span>
+                    Volver al Menú
+                </button>
+            </div>
         </div>
         `;
         document.getElementById('app-container').innerHTML = html;

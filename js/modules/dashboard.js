@@ -11,13 +11,29 @@ const Dashboard = {
             <!-- Hero Section -->
             <section class="bg-gradient-to-br from-primary-container to-secondary-container py-20 px-8">
                 <div class="max-w-7xl mx-auto text-center text-white">
-                    <h1 class="text-5xl font-headline font-bold mb-4">¡Bienvenido, ${userName}!</h1>
+                    <h1 class="text-5xl font-headline font-bold mb-4">¡Hola, ${userName}!</h1>
+                    <p class="text-xl opacity-90">Este es tu espacio de aprendizaje</p>
+
                     <p class="text-xl opacity-90">Descubre, aprende y celebra la diversidad y la inclusión</p>
                 </div>
             </section>
 
             <!-- Progress Overview -->
             <section class="max-w-7xl mx-auto px-8 py-16">
+                <!-- Puntos Card -->
+                <div class="bg-gradient-to-br from-yellow-400 to-orange-500 dark:from-yellow-600 dark:to-orange-600 rounded-2xl p-8 mb-12 shadow-lg cursor-pointer hover:shadow-xl transition-all transform hover:scale-102" 
+                     onclick="app.navigateTo('puntos')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-yellow-100 text-sm font-semibold mb-1">🏆 MIS PUNTOS</p>
+                            <p class="text-4xl font-black text-white">${gameScore.points} pts</p>
+                            <p class="text-yellow-100 text-sm mt-2">Nivel ${gameScore.level}</p>
+                        </div>
+                        <span class="text-7xl">⭐</span>
+                    </div>
+                    <p class="text-yellow-100 text-xs mt-4">Haz clic para ver detalles completos de tus puntos</p>
+                </div>
+
                 <h2 class="text-3xl font-headline font-bold mb-8">Tu Progreso General</h2>
                 
                 <!-- Overall Progress -->

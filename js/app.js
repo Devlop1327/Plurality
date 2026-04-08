@@ -49,6 +49,9 @@ const app = {
                 Evaluacion.reset();
                 content = Evaluacion.render();
                 break;
+            case 'puntos':
+                content = Puntos.render();
+                break;
             default:
                 content = Dashboard.render();
         }
