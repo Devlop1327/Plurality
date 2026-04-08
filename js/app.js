@@ -26,6 +26,18 @@ const app = {
             case 'educativo':
                 content = Educativo.render();
                 break;
+            case 'inclusion':
+                content = Inclusion.render();
+                break;
+            case 'derechos':
+                content = Derechos.render();
+                break;
+            case 'historia':
+                content = Historia.render();
+                break;
+            case 'aliado':
+                content = Aliado.render();
+                break;
             case 'juegos':
                 content = Juegos.render();
                 break;
