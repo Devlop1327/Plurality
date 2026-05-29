@@ -12,6 +12,7 @@ const app = {
     navigateTo(module) {
         this.currentModule = module;
         this.render();
+        this.setupNavigation();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     },
 
@@ -28,6 +29,9 @@ const app = {
                 break;
             case 'inclusion':
                 content = Inclusion.render();
+                break;
+            case 'genero':
+                content = Genero.render();
                 break;
             case 'derechos':
                 content = Derechos.render();
@@ -49,6 +53,9 @@ const app = {
                 Evaluacion.reset();
                 content = Evaluacion.render();
                 break;
+            case 'compromisos':
+                content = InteractiveComponents.muro.render();
+                break;
             case 'puntos':
                 content = Puntos.render();
                 break;
@@ -61,26 +68,15 @@ const app = {
     },
 
     setupNavigation() {
-        // Update nav links based on current module
         document.querySelectorAll('nav a').forEach(link => {
             link.classList.remove('text-[#7E57C2]', 'border-b-2', 'border-[#7E57C2]', 'pb-1', 'font-bold');
             link.classList.add('text-slate-600', 'dark:text-slate-400', 'hover:text-[#7E57C2]');
-        });
 
-        // Highlight current module
-        const moduleMap = {
-            'educativo': 0,
-            'juegos': 1,
-            'simulador': 2,
-            'evaluacion': 3
-        };
-
-        if (moduleMap[this.currentModule] !== undefined) {
-            const links = document.querySelectorAll('nav a[onclick]');
-            if (links[moduleMap[this.currentModule]]) {
-                links[moduleMap[this.currentModule]].classList.add('text-[#7E57C2]', 'border-b-2', 'border-[#7E57C2]', 'pb-1', 'font-bold');
+            if (link.dataset.module === this.currentModule) {
+                link.classList.remove('text-slate-600', 'dark:text-slate-400');
+                link.classList.add('text-[#7E57C2]', 'border-b-2', 'border-[#7E57C2]', 'pb-1', 'font-bold');
             }
-        }
+        });
     },
 
     toggleDarkMode() {

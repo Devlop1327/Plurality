@@ -3793,3 +3793,193 @@ h1, h2, h3 {
     line-height: 1;
   }
 }
+
+/* ========== CUSTOM STYLES ========== */
+
+/* Alto Contraste */
+body.high-contrast {
+  background-color: #121212;
+  color: #FFFF00;
+}
+
+body.high-contrast * {
+  background-color: inherit;
+  color: inherit;
+}
+
+body.high-contrast .bg-white,
+body.high-contrast .dark\:bg-slate-900,
+body.high-contrast .dark\:bg-slate-800,
+body.high-contrast .bg-slate-50 {
+  background-color: #1a1a1a !important;
+  color: #FFFF00 !important;
+}
+
+body.high-contrast header,
+body.high-contrast nav {
+  background-color: #1a1a1a !important;
+  border-color: #FFFF00 !important;
+}
+
+body.high-contrast a,
+body.high-contrast button,
+body.high-contrast .text-slate-600,
+body.high-contrast .text-slate-400 {
+  color: #FFFF00 !important;
+}
+
+body.high-contrast .text-\[\#7E57C2\],
+body.high-contrast .text-purple-600 {
+  color: #FFFF00 !important;
+}
+
+body.high-contrast input,
+body.high-contrast textarea {
+  background-color: #1a1a1a !important;
+  color: #FFFF00 !important;
+  border-color: #FFFF00 !important;
+}
+
+body.high-contrast .border-slate-200,
+body.high-contrast .border-slate-300 {
+  border-color: #FFFF00 !important;
+}
+
+body.high-contrast .bg-purple-50,
+body.high-contrast .bg-slate-100 {
+  background-color: #2a2a2a !important;
+}
+
+body.high-contrast .shadow-lg,
+body.high-contrast .shadow-md {
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.3) !important;
+}
+
+/* Min-width para panel de accesibilidad */
+#accessibility-panel {
+  min-width: 280px;
+}
+
+/* Sticky Notes - Tarjetas de Compromisos */
+.sticky-note {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 2px 2px 4px rgba(0, 0, 0, 0.1);
+  transform: rotate(-1deg);
+  position: relative;
+}
+
+.sticky-note:nth-child(2n) {
+  transform: rotate(0.5deg);
+}
+
+.sticky-note:nth-child(3n) {
+  transform: rotate(-0.8deg);
+}
+
+.sticky-note:nth-child(4n) {
+  transform: rotate(1.2deg);
+}
+
+.sticky-note::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Trivia Container */
+.trivia-container {
+  width: 100%;
+}
+
+/* Grid responsive para muro */
+@media (min-width: 1024px) {
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-cols-1 {
+    grid-template-columns: 1fr;
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Range input styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #7E57C2;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #7E57C2;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark mode para range */
+.dark input[type="range"] {
+  background: #475569;
+}
+
+/* Trivia button states */
+.trivia-answer-btn {
+  transition: all 0.3s ease;
+}
+
+.trivia-answer-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Respuesta correcta (verde) */
+.trivia-correct {
+  background-color: #dcfce7 !important;
+  border-color: #22c55e !important;
+  color: #15803d !important;
+}
+
+.dark .trivia-correct {
+  background-color: rgba(34, 197, 94, 0.1) !important;
+  border-color: #22c55e !important;
+  color: #86efac !important;
+}
+
+/* Respuesta incorrecta (rojo) */
+.trivia-incorrect {
+  background-color: #fee2e2 !important;
+  border-color: #ef4444 !important;
+  color: #991b1b !important;
+}
+
+.dark .trivia-incorrect {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+  border-color: #ef4444 !important;
+  color: #fca5a5 !important;
+}

@@ -52,13 +52,27 @@ const Inclusion = {
                         onclick="Inclusion.goToNext()">
                         Siguiente <span class="material-symbols-outlined text-xl">arrow_forward</span>
                     </button>
-                ` : `
+                ` : ''}
+            </div>
+
+            <!-- Trivia Section - El Desafío de la Inclusión -->
+            ${this.currentSection === sections.length - 1 ? `
+                <div class="mt-16 pt-8 border-t-2 border-slate-200 dark:border-slate-700">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">El Desafío de la Inclusión</h3>
+                    <div class="trivia-container">
+                        ${InteractiveComponents.trivia.render()}
+                    </div>
+                </div>
+            ` : ''}
+
+            ${this.currentSection === sections.length - 1 ? `
+                <div class="mt-8 flex gap-4 justify-center">
                     <button class="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition"
                         onclick="app.navigateTo('dashboard')">
-                        <span class="material-symbols-outlined text-xl">check_circle</span> Completado
+                        <span class="material-symbols-outlined text-xl">home</span> Ir al Inicio
                     </button>
-                `}
-            </div>
+                </div>
+            ` : ''}
         </div>
         `;
 
