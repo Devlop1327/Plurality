@@ -144,31 +144,38 @@ const quizData = {
     ],
 
     // ========== MEMORIA GAMES ==========
-    memoryGames: [
+    memoryDecks: [
         {
             title: "Memoria: Géneros e Identidades",
-            cards: [
-                { id: 1, content: "Cis", pair: "Identidad coincide" },
-                { id: 2, content: "Identidad coincide", pair: "Cis" },
-                { id: 3, content: "Trans", pair: "Identidad diferente" },
-                { id: 4, content: "Identidad diferente", pair: "Trans" },
-                { id: 5, content: "No binario", pair: "Fuera del binario" },
-                { id: 6, content: "Fuera del binario", pair: "No binario" },
-                { id: 7, content: "Queer", pair: "Identidad fluida" },
-                { id: 8, content: "Identidad fluida", pair: "Queer" }
+            pairs: [
+                { id: 1, term: "Cis", definition: "Identidad coincide" },
+                { id: 2, term: "Trans", definition: "Identidad diferente" },
+                { id: 3, term: "No binario", definition: "Fuera del binario" },
+                { id: 4, term: "Queer", definition: "Identidad fluida" },
+                { id: 5, term: "Bisexual", definition: "Atracción a múltiples géneros" },
+                { id: 6, term: "Interseccionalidad", definition: "Identidades cruzadas" }
             ]
         },
         {
             title: "Memoria: Orientaciones Sexuales",
-            cards: [
-                { id: 1, content: "Gay", pair: "Hombre-Hombre" },
-                { id: 2, content: "Hombre-Hombre", pair: "Gay" },
-                { id: 3, content: "Lesbiana", pair: "Mujer-Mujer" },
-                { id: 4, content: "Mujer-Mujer", pair: "Lesbiana" },
-                { id: 5, content: "Bi", pair: "Múltiples géneros" },
-                { id: 6, content: "Múltiples géneros", pair: "Bi" },
-                { id: 7, content: "Asexual", pair: "Poco deseo sexual" },
-                { id: 8, content: "Poco deseo sexual", pair: "Asexual" }
+            pairs: [
+                { id: 1, term: "Gay", definition: "Atracción hacia personas del mismo género" },
+                { id: 2, term: "Lesbiana", definition: "Mujer-Mujer" },
+                { id: 3, term: "Bisexual", definition: "Atracción a múltiples géneros" },
+                { id: 4, term: "Asexual", definition: "Poco deseo sexual" },
+                { id: 5, term: "Pansexual", definition: "Atracción sin importar género" },
+                { id: 6, term: "Heterosexual", definition: "Atracción hacia el género opuesto" }
+            ]
+        },
+        {
+            title: "Memoria: Inclusión y Respeto",
+            pairs: [
+                { id: 1, term: "Inclusión", definition: "Espacios donde todos se sienten valorados" },
+                { id: 2, term: "Equidad", definition: "Dar a cada persona lo que necesita" },
+                { id: 3, term: "Accesibilidad", definition: "Diseño para poder participar" },
+                { id: 4, term: "Visibilidad", definition: "Reconocer todas las identidades" },
+                { id: 5, term: "Empatía", definition: "Comprender lo que siente otra persona" },
+                { id: 6, term: "Aliado", definition: "Persona que apoya activamente" }
             ]
         }
     ],
@@ -209,10 +216,19 @@ const quizData = {
     historiaContent: [
         { id: 1, year: "1969", event: "Stonewall Uprising", description: "El levantamiento de Stonewall en Nueva York marca el inicio del movimiento moderno por derechos LGBTQ+. La resistencia contra la persecución policial se convierte en un símbolo global." },
         { id: 2, year: "1978", event: "Primer Orgullo", description: "Se celebra la primera marcha del orgullo LGBTQ+, conmemorando Stonewall. Rápidamente se expande a ciudades alrededor del mundo." },
-        { id: 3, year: "1996", event: "Primeras Uniones Civiles", description: "Dinamarca reconoce las primeras uniones civiles homosexuales. Un paso importante hacia la igualdad legal." },
-        { id: 4, year: "2001", event: "Matrimonio Igualitario en Holanda", description: "Holanda se convierte en el primer país en legalizar el matrimonio igualitario. Otros países rápidamente siguen este ejemplo." },
-        { id: 5, year: "2009", event: "ONU Declara Derechos", description: "Las Naciones Unidas reconocen los derechos de personas LGBTQ+ como derechos humanos fundamentales." },
-        { id: 6, year: "2010", event: "Matrimonio en América Latina", description: "Argentina se convierte en el primer país latinoamericano en legalizar matrimonio igualitario." }
+        { id: 3, year: "1990", event: "OMS Elimina la Homosexualidad", description: "La Organización Mundial de la Salud deja de clasificar la homosexualidad como enfermedad, un paso clave hacia la despatologización global." },
+        { id: 4, year: "1996", event: "Primeras Uniones Civiles", description: "Dinamarca reconoce las primeras uniones civiles homosexuales. Un paso importante hacia la igualdad legal." },
+        { id: 5, year: "2001", event: "Matrimonio Igualitario en Holanda", description: "Holanda se convierte en el primer país en legalizar el matrimonio igualitario. Otros países rápidamente siguen este ejemplo." },
+        { id: 6, year: "2009", event: "ONU Declara Derechos", description: "Las Naciones Unidas reconocen los derechos de personas LGBTQ+ como derechos humanos fundamentales." },
+        { id: 7, year: "2010", event: "Matrimonio en América Latina", description: "Argentina se convierte en el primer país latinoamericano en legalizar matrimonio igualitario." }
+    ],
+
+    historiaContentInclusiva: [
+        { id: 1, year: "1994", event: "Declaración de Salamanca", description: "La UNESCO suscribe la Declaración de Salamanca, que impulsa la inclusión educativa para estudiantes con necesidades especiales en escuelas regulares." },
+        { id: 2, year: "2006", event: "Convención de la ONU", description: "La Convención sobre los Derechos de las Personas con Discapacidad consagra el derecho a una educación inclusiva y accesible para todas las personas." },
+        { id: 3, year: "2015", event: "ODS y Educación", description: "Los Objetivos de Desarrollo Sostenible establecen educación de calidad e inclusiva como meta global, reforzando políticas educativas diversas." },
+        { id: 4, year: "2011", event: "Ley de Discapacidad en Colombia", description: "Colombia aprueba una ley que promueve la inclusión, la accesibilidad y la igualdad de oportunidades para personas con discapacidad." },
+        { id: 5, year: "2020", event: "Educación Inclusiva Global", description: "Países y escuelas adoptan estrategias de diseño universal para el aprendizaje, ampliando el acceso a estudiantes con diferentes capacidades." }
     ],
 
     // ========== MÓDULO: SER ALIADO ==========
@@ -324,25 +340,108 @@ const quizData = {
         }
     ],
 
+    // ========== MEMORIA PRO: ENCUENTRA LA PAREJA ==========
+    memoryPairs: [
+        { term: "Interseccionalidad", definition: "Reconoce cómo diferentes identidades interactúan y se cruzan" },
+        { term: "Diversidad", definition: "Variedad de experiencias, identidades y culturas en un grupo" },
+        { term: "Inclusión", definition: "Crear espacios donde todas las personas se sientan valoradas" },
+        { term: "Empatía", definition: "Capacidad de comprender y sentir lo que otra persona vive" },
+        { term: "Aliado", definition: "Persona que apoya los derechos de una comunidad" },
+        { term: "Accesibilidad", definition: "Diseño que permite participación a personas con discapacidades" },
+        { term: "Visibilidad", definition: "Reconocer y respetar la existencia de todas las identidades" },
+        { term: "Equidad", definition: "Dar a cada persona lo que necesita para tener las mismas oportunidades" },
+        { term: "Respeto", definition: "Valorar las diferencias y tratar a todas las personas con dignidad" }
+    ],
+
     // ========== ROMPECABEZAS DE CONCEPTOS ==========
     rompeacabezas: [
         {
             title: "Completa la definición",
             question: "La identidad de género es la _____ personal de alguien sobre su propio género",
             answer: "percepción",
-            options: ["percepción", "presentación", "expresión", "orientación"]
+            options: ["percepción", "presentación", "expresión", "orientación"],
+            hints: [
+                "Es la forma en que una persona se ve a sí misma.",
+                "No es la forma en que se viste.",
+                "Comienza con 'per' y habla de entender."
+            ]
         },
         {
             title: "Completa la frase",
             question: "Ser _____ significa apoyar activamente los derechos de la comunidad LGBTQ+",
             answer: "aliado",
-            options: ["amigo", "aliado", "testigo", "espectador"]
+            options: ["amigo", "aliado", "testigo", "espectador"],
+            hints: [
+                "Empieza con 'a' y significa apoyo.",
+                "No es solo observar, es actuar.",
+                "Se usa para describir a quien acompaña y defiende."
+            ]
         },
         {
             title: "Completa el concepto",
             question: "El espectro de las _____ sexuales incluye heterosexualidad, homosexualidad, bisexualidad y más",
             answer: "orientaciones",
-            options: ["identidades", "orientaciones", "expresiones", "géneros"]
+            options: ["identidades", "orientaciones", "expresiones", "géneros"],
+            hints: [
+                "Habla de hacia quién nos sentimos atraídos.",
+                "No es identidad ni expresión.",
+                "Empieza con 'o'."
+            ]
+        },
+        {
+            title: "Completa la palabra",
+            question: "La palabra _____ describe cuando una persona no se identifica exclusivamente como hombre o mujer",
+            answer: "no binaria",
+            options: ["transgénero", "género fluido", "no binaria", "cisgénero"],
+            hints: [
+                "Incluye dos palabras.",
+                "Es una identidad fuera del binario.",
+                "Empieza con 'no'."
+            ]
+        },
+        {
+            title: "Completa la frase",
+            question: "La _____ de género es la forma en que una persona comparte su género con los demás",
+            answer: "expresión",
+            options: ["identidad", "expresión", "orientación", "presentación"],
+            hints: [
+                "No es cómo se siente por dentro, sino cómo lo muestra.",
+                "Se expresa con ropa, actitud o lenguaje.",
+                "Empieza con 'exp'."
+            ]
+        },
+        {
+            title: "Completa la idea",
+            question: "La visibilidad ayuda a que todas las personas se sientan _____ en la sociedad",
+            answer: "reconocidas",
+            options: ["reconocidas", "excluidas", "ocultas", "ignoradas"],
+            hints: [
+                "Es algo positivo.",
+                "Tiene que ver con ser visto y aceptado.",
+                "Empieza con 're'."
+            ]
+        },
+        {
+            title: "Completa la frase",
+            question: "Un/a aliado/a escucha con respeto y _____ a las personas LGBTQ+",
+            answer: "apoya",
+            options: ["ignora", "critica", "apoya", "discute"],
+            hints: [
+                "Es una acción solidaria.",
+                "Significa respaldar.",
+                "Empieza con 'a'."
+            ]
+        },
+        {
+            title: "Completa la definición",
+            question: "La inclusión es crear espacios donde todas las personas se sientan _____ y valoradas",
+            answer: "bienvenidas",
+            options: ["aceptadas", "seguras", "bienvenidas", "visibles"],
+            hints: [
+                "Es cómo nos sentimos al entrar a un lugar.",
+                "Tiene relación con hospitalidad.",
+                "Empieza con 'bien'."
+            ]
         }
     ],
 

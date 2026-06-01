@@ -1,20 +1,61 @@
 // Historia Module
 const Historia = {
+    currentTimeline: 'lgbtq',
     currentSection: 0,
 
     reset() {
+        this.currentTimeline = 'lgbtq';
         this.currentSection = 0;
     },
 
+    getCurrentTimeline() {
+        return this.currentTimeline === 'lgbtq'
+            ? quizData.historiaContent
+            : quizData.historiaContentInclusiva;
+    },
+
+    getTimelineMeta() {
+        return this.currentTimeline === 'lgbtq'
+            ? {
+                title: 'Historia LGBTQ+',
+                description: 'Conoce los hitos más importantes del movimiento LGBTQ+ global'
+            }
+            : {
+                title: 'Historia de la Educación Inclusiva',
+                description: 'Descubre los avances y acciones clave hacia una educación más justa y accesible para todas las personas.'
+            };
+    },
+
     render() {
-        const events = quizData.historiaContent;
+        const events = this.getCurrentTimeline();
         const current = events[this.currentSection];
+        const meta = this.getTimelineMeta();
+
+        const timelines = [
+            { id: 'lgbtq', label: 'LGBTQ+' },
+            { id: 'inclusiva', label: 'Inclusiva' }
+        ];
 
         let html = `
         <div class="max-w-7xl mx-auto px-8 py-12">
             <div class="mb-8">
-                <h1 class="text-4xl font-bold text-[#7E57C2] dark:text-[#b39ddb] mb-2">Historia LGBTQ+</h1>
-                <p class="text-slate-600 dark:text-slate-400">Conoce los hitos más importantes del movimiento LGBTQ+ global</p>
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <h1 class="text-4xl font-bold text-[#7E57C2] dark:text-[#b39ddb] mb-2">${meta.title}</h1>
+                        <p class="text-slate-600 dark:text-slate-400">${meta.description}</p>
+                    </div>
+                    <div class="flex gap-3">
+                        ${timelines.map(timeline => `
+                            <button onclick="Historia.switchTimeline('${timeline.id}')"
+                                class="px-4 py-2 rounded-full font-semibold transition ${timeline.id === this.currentTimeline
+                                    ? 'bg-purple-600 text-white'
+                                    : 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600'
+                                }">
+                                ${timeline.label}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
             </div>
 
             <!-- Timeline Progress -->
@@ -26,7 +67,7 @@ const Historia = {
 
             <!-- Event Card -->
             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 mb-8">
-                <div class="flex items-start gap-6 mb-6">
+                <div class="flex flex-col lg:flex-row items-start gap-6 mb-6">
                     <div class="bg-purple-600 text-white rounded-full w-24 h-24 flex items-center justify-center flex-shrink-0">
                         <span class="text-3xl font-bold">${current.year}</span>
                     </div>
@@ -43,9 +84,9 @@ const Historia = {
                     ${events.map((event, idx) => `
                         <button onclick="Historia.goToEvent(${idx})" 
                             class="px-4 py-2 rounded font-semibold whitespace-nowrap transition ${idx === this.currentSection
-                ? 'bg-purple-600 text-white'
-                : 'bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white hover:bg-slate-300'
-            }">
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white hover:bg-slate-300'
+                            }">
                             ${event.year}
                         </button>
                     `).join('')}
@@ -60,7 +101,7 @@ const Historia = {
                         <span class="material-symbols-outlined text-xl">arrow_back</span> Anterior
                     </button>
                 ` : ''}
-                
+
                 ${this.currentSection < events.length - 1 ? `
                     <button class="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition"
                         onclick="Historia.goToNext()">
@@ -79,8 +120,18 @@ const Historia = {
         return html;
     },
 
+    switchTimeline(timeline) {
+        if (this.currentTimeline !== timeline) {
+            this.currentTimeline = timeline;
+            this.currentSection = 0;
+            app.render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    },
+
     goToNext() {
-        if (this.currentSection < quizData.historiaContent.length - 1) {
+        const events = this.getCurrentTimeline();
+        if (this.currentSection < events.length - 1) {
             this.currentSection++;
             app.render();
             window.scrollTo({ top: 0, behavior: 'smooth' });

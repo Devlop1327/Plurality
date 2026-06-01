@@ -49,6 +49,9 @@ const app = {
                 Simulador.reset();
                 content = Simulador.render();
                 break;
+            case 'medallero':
+                content = Medallero.render();
+                break;
             case 'evaluacion':
                 Evaluacion.reset();
                 content = Evaluacion.render();

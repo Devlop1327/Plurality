@@ -20,6 +20,40 @@ const Dashboard = {
 
             <!-- Progress Overview -->
             <section class="max-w-7xl mx-auto px-8 py-16">
+                <!-- Profile + Badges -->
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 mb-8 border border-slate-200 dark:border-slate-700 flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex items-center gap-6 w-full md:w-2/3">
+                        <div class="w-28 h-28 rounded-full bg-gradient-to-br from-purple-100 to-purple-50 dark:from-purple-900/20 dark:to-purple-800/30 flex items-center justify-center text-4xl font-bold text-purple-700">👤</div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">${Storage.getUserProfile().name}</h2>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Especialista en Diversidad e Inclusión</p>
+                            <div class="flex items-center gap-4 mt-3">
+                                <div class="px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-sm">
+                                    <div class="text-xs text-slate-500">EXPERIENCIA TOTAL</div>
+                                    <div class="font-bold text-purple-600">${Storage.getUserProfile().xp} XP</div>
+                                </div>
+                                <div class="px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-sm">
+                                    <div class="text-xs text-slate-500">CERTIFICADOS</div>
+                                    <div class="font-bold">${Storage.getUserProfile().certificates}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Galería de Medallas</h3>
+                            <button onclick="app.navigateTo('medallero')" class="text-sm text-primary font-semibold hover:underline">Ver todo</button>
+                        </div>
+                        <div class="grid grid-cols-4 gap-3">
+                            ${Storage.getBadges().slice(0,4).map(b => `
+                                <div class="rounded-xl p-4 text-center ${b.unlocked ? 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700' : 'bg-slate-50 dark:bg-slate-800/40 border border-dashed border-slate-200 dark:border-slate-700 opacity-60'}">
+                                    <div class="text-2xl mb-2">${b.unlocked ? '🏅' : '🔒'}</div>
+                                    <div class="text-xs font-semibold">${b.title}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
                 <!-- Puntos Card -->
                 <div class="bg-gradient-to-br from-yellow-400 to-orange-500 dark:from-yellow-600 dark:to-orange-600 rounded-2xl p-8 mb-12 shadow-lg cursor-pointer hover:shadow-xl transition-all transform hover:scale-102" 
                      onclick="app.navigateTo('puntos')">

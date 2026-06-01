@@ -2104,6 +2104,52 @@ input:where([type='file']):focus {
   --tw-gradient-to: #f8fafc var(--tw-gradient-to-position);
 }
 
+/* Dark mode adjustments for hero gradient */
+.dark .from-primary-container {
+  --tw-gradient-from: rgb(88 56 140) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(88 56 140 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.dark .to-secondary-container {
+  --tw-gradient-to: #4dd6c6 var(--tw-gradient-to-position);
+}
+
+/* High contrast mode: solid high-contrast banner and stronger accessibility panel */
+.high-contrast .bg-gradient-to-br.from-primary-container.to-secondary-container,
+.high-contrast section.bg-gradient-to-br {
+  background-image: none !important;
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.high-contrast #accessibility-panel {
+  background: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.high-contrast #accessibility-panel button,
+.high-contrast #accessibility-panel input,
+.high-contrast #accessibility-panel span {
+  color: #fff !important;
+}
+
+.high-contrast #contrast-btn {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+/* Stronger override: hero gradient for dark mode (higher specificity) */
+.dark section.bg-gradient-to-br.from-primary-container.to-secondary-container {
+  background-image: linear-gradient(to bottom right, rgba(55,31,110,0.9), rgba(6,30,40,0.85)) !important;
+}
+
+.dark section.bg-gradient-to-br.from-primary-container.to-secondary-container .text-white {
+  color: #ffffff !important;
+}
+
+
 .to-transparent {
   --tw-gradient-to: transparent var(--tw-gradient-to-position);
 }

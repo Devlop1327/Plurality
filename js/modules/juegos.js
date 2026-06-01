@@ -1,10 +1,19 @@
 // Games Module
 const Juegos = {
-    gameType: 'menu', // menu, quiz, matching
+    gameType: 'menu', // menu, quiz, matching, rompecabezas
     currentQuestionIdx: 0,
     currentItemIdx: 0,
     score: 0,
     correctAnswers: 0,
+    hintsShown: 0,
+    memoryCards: [],
+    currentMemoryPairs: [],
+    memoryDeckTitle: '',
+    selectedCards: [],
+    revealedCards: new Set(),
+    matchesFound: 0,
+    attempts: 0,
+    memoryLocked: false,
     draggingItem: null, // Store dragging item data
     matchingPairs: {
         conceptos: [
@@ -14,6 +23,15 @@ const Juegos = {
             { id: 4, term: "Bisexual", definition: "Atracción hacia múltiples géneros" }
         ],
         matched: []
+    },
+
+    shuffleArray(array) {
+        const result = [...array];
+        for (let i = result.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [result[i], result[j]] = [result[j], result[i]];
+        }
+        return result;
     },
 
     renderMenu() {
@@ -55,12 +73,28 @@ const Juegos = {
                     <p class="text-sm text-slate-600 dark:text-slate-400">Relaciona conceptos con definiciones.</p>
                 </div>
 
+                <!-- Memory Pro -->
+                <div class="bg-gradient-to-br from-cyan-100 to-cyan-50 dark:from-cyan-900/30 dark:to-cyan-800/20 rounded-xl p-6 border border-cyan-200 dark:border-cyan-700 hover:shadow-lg hover:scale-105 transition-all cursor-pointer"
+                     onclick="Juegos.startMemory()">
+                    <span class="material-symbols-outlined text-4xl text-cyan-600 mb-3">grid_view</span>
+                    <h2 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">Encuentra la Pareja</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Memoria pro con pares de términos y definiciones.</p>
+                </div>
+
                 <!-- Categorización -->
                 <div class="bg-gradient-to-br from-amber-100 to-amber-50 dark:from-amber-900/30 dark:to-amber-800/20 rounded-xl p-6 border border-amber-200 dark:border-amber-700 hover:shadow-lg hover:scale-105 transition-all cursor-pointer"
                      onclick="Juegos.startCategorizacion()">
                     <span class="material-symbols-outlined text-4xl text-amber-600 mb-3">category</span>
                     <h2 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">Categorización</h2>
                     <p class="text-sm text-slate-600 dark:text-slate-400">Clasifica elementos en categorías.</p>
+                </div>
+
+                <!-- Puzzle Rompecabezas -->
+                <div class="bg-gradient-to-br from-fuchsia-100 to-fuchsia-50 dark:from-fuchsia-900/30 dark:to-fuchsia-800/20 rounded-xl p-6 border border-fuchsia-200 dark:border-fuchsia-700 hover:shadow-lg hover:scale-105 transition-all cursor-pointer"
+                     onclick="Juegos.startRompecabezas()">
+                    <span class="material-symbols-outlined text-4xl text-fuchsia-600 mb-3">puzzle</span>
+                    <h2 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">Rompecabezas</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Completa frases clave sobre diversidad e inclusión.</p>
                 </div>
 
                 <!-- Palabras Clave -->
@@ -200,6 +234,100 @@ const Juegos = {
             </div>
         </div>
         `;
+    },
+
+    renderMemory() {
+        const cardCount = this.memoryCards.length;
+        const progress = Math.round((this.matchesFound / (cardCount / 2)) * 100);
+
+        return `
+        <div class="page-transition max-w-6xl mx-auto px-8 py-12">
+            <div class="mb-8">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold mb-2 text-slate-900 dark:text-white">${this.memoryDeckTitle || 'Encuentra la Pareja'}</h1>
+                        <p class="text-slate-600 dark:text-slate-400">Gira las cartas y encuentra el par correcto de términos y definiciones.</p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="rounded-2xl bg-slate-100 dark:bg-slate-800 p-4">
+                            <p class="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2">Aciertos</p>
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">${this.matchesFound}</p>
+                        </div>
+                        <div class="rounded-2xl bg-slate-100 dark:bg-slate-800 p-4">
+                            <p class="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2">Intentos</p>
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">${this.attempts}</p>
+                        </div>
+                        <div class="rounded-2xl bg-slate-100 dark:bg-slate-800 p-4">
+                            <p class="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2">Puntos</p>
+                            <p class="text-2xl font-bold text-fuchsia-600">${this.score}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                    <div class="bg-cyan-600 h-2 rounded-full transition-all" style="width: ${progress}%"></div>
+                </div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">${this.matchesFound}/${cardCount / 2} pares encontrados</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 mb-8">
+                ${this.memoryCards.map((card, idx) => {
+            const isFlipped = this.revealedCards.has(idx) || this.selectedCards.includes(idx);
+            return `
+                    <button onclick="Juegos.flipMemoryCard(${idx})" class="relative min-h-[220px] rounded-3xl border-2 transition-all ${isFlipped ? 'bg-white dark:bg-slate-800 border-cyan-300 dark:border-cyan-600 shadow-2xl' : 'bg-slate-900 dark:bg-slate-950 border-slate-700 hover:border-cyan-400'} px-6 py-5 overflow-hidden ${this.memoryLocked ? 'cursor-not-allowed' : 'cursor-pointer'}" ${this.memoryLocked ? 'disabled' : ''}>
+                        <div class="absolute inset-0 flex items-center justify-center text-center p-4 ${isFlipped ? 'text-slate-900 dark:text-white' : 'text-cyan-100 dark:text-cyan-200'} font-semibold text-base leading-8">
+                            ${isFlipped ? card.label : '🚀'}
+                        </div>
+                    </button>
+                `;
+        }).join('')}
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <button onclick="Juegos.startMemory()" class="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-purple-600 border border-purple-700 text-white shadow-lg hover:bg-purple-700 transition-all">
+                    <span class="material-symbols-outlined">restart_alt</span>
+                    Reiniciar Juego
+                </button>
+                <button onclick="Juegos.gameType = 'menu'; Juegos.refresh()" class="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 transition-all">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Volver al Menú
+                </button>
+            </div>
+        </div>
+        `;
+    },
+
+    showResultsMemory() {
+        const totalPairs = this.currentMemoryPairs.length || quizData.memoryPairs.length;
+        const percentage = Math.round((this.matchesFound / totalPairs) * 100);
+
+        Storage.addGamePoints(this.score, 'memory');
+        Storage.updateModuleProgress('juegos', Math.min(Storage.getProgress().juegos + 25, 100));
+
+        const html = `
+        <div class="page-transition max-w-2xl mx-auto px-8 py-12 text-center">
+            <div class="bg-gradient-to-br from-cyan-100 to-cyan-50 dark:from-cyan-900/30 dark:to-cyan-800/20 rounded-2xl p-12 mb-8">
+                <span class="material-symbols-outlined text-6xl text-cyan-600 mb-4 block">celebration</span>
+                <h1 class="text-4xl font-bold mb-4 text-slate-900 dark:text-white">¡Parejas encontradas!</h1>
+                <p class="text-3xl font-bold text-cyan-600 mb-2">${percentage}%</p>
+                <p class="text-lg text-slate-600 dark:text-slate-400">${this.matchesFound}/${totalPairs} pares correctos</p>
+                <p class="text-2xl font-bold text-slate-900 dark:text-white mt-4">+${this.score} puntos</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button onclick="Juegos.startMemory()" class="w-full flex items-center justify-center gap-2 bg-cyan-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-cyan-700 transition-all hover:shadow-lg">
+                    <span class="material-symbols-outlined text-xl">replay</span>
+                    Intentar de Nuevo
+                </button>
+                <button onclick="Juegos.gameType = 'menu'; Juegos.refresh()" class="w-full flex items-center justify-center gap-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-white px-6 py-3 rounded-full font-semibold transition-all hover:shadow-lg">
+                    <span class="material-symbols-outlined text-xl">arrow_back</span>
+                    Volver al Menú
+                </button>
+            </div>
+        </div>
+        `;
+
+        document.getElementById('app-container').innerHTML = html;
     },
 
     renderTrivia() {
@@ -447,6 +575,61 @@ const Juegos = {
         `;
     },
 
+    renderRompecabezas() {
+        const item = this.rompecabezasDeck[this.currentQuestionIdx];
+        const progress = Math.round(((this.currentQuestionIdx + 1) / this.rompecabezasDeck.length) * 100);
+
+        return `
+        <div class="page-transition max-w-2xl mx-auto px-8 py-12">
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="font-semibold">Rompecabezas ${this.currentQuestionIdx + 1}/${this.rompecabezasDeck.length}</span>
+                    <span class="text-lg font-bold text-fuchsia-600">${this.score} pts</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                    <div class="bg-fuchsia-600 h-2 rounded-full transition-all" style="width: ${progress}%"></div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 border border-fuchsia-200 dark:border-fuchsia-700">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">${item.title}</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">${item.question}</p>
+
+                <div class="grid grid-cols-1 gap-4">
+                    ${item.options.map((option, idx) => `
+                        <button onclick="Juegos.answerRompecabezas(${idx})" 
+                                class="w-full text-left bg-fuchsia-50 dark:bg-fuchsia-950/20 hover:bg-fuchsia-100 dark:hover:bg-fuchsia-900/40 px-4 py-4 rounded-2xl border border-fuchsia-200 dark:border-fuchsia-700 font-semibold text-slate-900 dark:text-white transition-all hover:shadow-lg">
+                            ${option}
+                        </button>
+                    `).join('')}
+                </div>
+
+                <div class="mt-8 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                    <div class="flex flex-col gap-4">
+                        <button onclick="Juegos.showHintRompecabezas()" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-fuchsia-600 hover:bg-fuchsia-700 text-slate-100 dark:text-white px-5 py-3 font-semibold transition-all ${this.hintsShown >= item.hints.length ? 'opacity-60 cursor-not-allowed pointer-events-none' : ''}">
+                            <span class="material-symbols-outlined">lightbulb</span>
+                            ${this.hintsShown >= item.hints.length ? 'No hay más pistas' : 'Mostrar pista'}
+                        </button>
+                        ${this.hintsShown > 0 ? `
+                            <div class="rounded-xl p-4 bg-white dark:bg-slate-800 border border-fuchsia-200 dark:border-fuchsia-700 text-slate-700 dark:text-slate-200">
+                                <p class="font-semibold mb-2">Pista ${this.hintsShown}/${item.hints.length}</p>
+                                <p>${item.hints[this.hintsShown - 1]}</p>
+                            </div>
+                        ` : `
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Usa la pista si necesitas ayuda para completar la frase.</p>
+                        `}
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="Juegos.backToMenu()" class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+                <span class="material-symbols-outlined text-xl">arrow_back</span>
+                Volver al Menú
+            </button>
+        </div>
+        `;
+    },
+
     render() {
         switch (this.gameType) {
             case 'quiz':
@@ -459,6 +642,10 @@ const Juegos = {
                 return this.renderCategorizacion();
             case 'palabrasclave':
                 return this.renderPalabrasClaves();
+            case 'rompecabezas':
+                return this.renderRompecabezas();
+            case 'memory':
+                return this.renderMemory();
             case 'matching':
                 return this.renderMatching();
             default:
@@ -488,6 +675,82 @@ const Juegos = {
         this.matchingDataSet = connections;
         this.matchedPairs = {};
         this.refresh();
+    },
+
+    startMemory() {
+        this.gameType = 'memory';
+        this.score = 0;
+        this.correctAnswers = 0;
+        this.attempts = 0;
+        this.matchesFound = 0;
+        this.memoryLocked = false;
+        this.selectedCards = [];
+        this.revealedCards = new Set();
+
+        const decks = quizData.memoryDecks || [];
+        const selectedDeck = decks.length ? decks[Math.floor(Math.random() * decks.length)] : null;
+        const pairsSource = selectedDeck ? selectedDeck.pairs : quizData.memoryPairs.map(pair => ({ term: pair.term, definition: pair.definition }));
+
+        this.currentMemoryPairs = pairsSource;
+        this.memoryDeckTitle = selectedDeck ? selectedDeck.title : 'Encuentra la Pareja';
+
+        const pairs = pairsSource.map((pair, index) => ({
+            pairId: index,
+            type: 'term',
+            label: pair.term,
+            content: pair.term
+        })).concat(pairsSource.map((pair, index) => ({
+            pairId: index,
+            type: 'definition',
+            label: pair.definition,
+            content: pair.definition
+        })));
+
+        this.memoryCards = this.shuffleArray(pairs);
+        this.refresh();
+    },
+
+    flipMemoryCard(idx) {
+        if (this.memoryLocked || this.revealedCards.has(idx) || this.selectedCards.includes(idx)) {
+            return;
+        }
+
+        this.selectedCards.push(idx);
+        this.refresh();
+
+        if (this.selectedCards.length === 2) {
+            this.checkMemoryPair();
+        }
+    },
+
+    checkMemoryPair() {
+        const [firstIdx, secondIdx] = this.selectedCards;
+        const firstCard = this.memoryCards[firstIdx];
+        const secondCard = this.memoryCards[secondIdx];
+
+        this.attempts++;
+
+        if (firstCard.pairId === secondCard.pairId && firstCard.type !== secondCard.type) {
+            this.score += 20;
+            this.correctAnswers++;
+            this.matchesFound++;
+            this.revealedCards.add(firstIdx);
+            this.revealedCards.add(secondIdx);
+            this.selectedCards = [];
+
+            if (this.matchesFound === this.currentMemoryPairs.length) {
+                this.showResultsMemory();
+            } else {
+                this.refresh();
+            }
+        } else {
+            this.memoryLocked = true;
+            setTimeout(() => {
+                this.selectedCards = [];
+                this.memoryLocked = false;
+                this.refresh();
+            }, 900);
+        }
     },
 
     startTriviRapido() {
@@ -521,6 +784,75 @@ const Juegos = {
         this.score = 0;
         this.correctAnswers = 0;
         this.refresh();
+    },
+
+    startRompecabezas() {
+        this.gameType = 'rompecabezas';
+        this.currentQuestionIdx = 0;
+        this.score = 0;
+        this.correctAnswers = 0;
+        this.hintsShown = 0;
+        this.rompecabezasDeck = this.shuffleArray(quizData.rompeacabezas.map(item => ({
+            ...item,
+            options: this.shuffleArray([...item.options]),
+            hints: [...item.hints]
+        })));
+        this.refresh();
+    },
+
+    answerRompecabezas(idx) {
+        const item = this.rompecabezasDeck[this.currentQuestionIdx];
+        if (item.options[idx] === item.answer) {
+            this.score += 15;
+            this.correctAnswers++;
+        }
+
+        if (this.currentQuestionIdx < this.rompecabezasDeck.length - 1) {
+            this.currentQuestionIdx++;
+            this.hintsShown = 0;
+            this.refresh();
+        } else {
+            this.showResultsRompecabezas();
+        }
+    },
+
+    showHintRompecabezas() {
+        const item = this.rompecabezasDeck[this.currentQuestionIdx];
+        if (!item.hints || this.hintsShown >= item.hints.length) return;
+        this.hintsShown++;
+        this.refresh();
+    },
+
+    showResultsRompecabezas() {
+        const total = this.rompecabezasDeck.length;
+        const percentage = Math.round((this.correctAnswers / total) * 100);
+
+        Storage.addGamePoints(this.score, 'rompecabezas');
+        Storage.updateModuleProgress('juegos', Math.min(Storage.getProgress().juegos + 20, 100));
+
+        const html = `
+        <div class="page-transition max-w-2xl mx-auto px-8 py-12 text-center">
+            <div class="bg-gradient-to-br from-fuchsia-100 to-fuchsia-50 dark:from-fuchsia-900/30 dark:to-fuchsia-800/20 rounded-2xl p-12 mb-8">
+                <span class="material-symbols-outlined text-6xl text-fuchsia-600 mb-4 block">celebration</span>
+                <h1 class="text-4xl font-bold mb-4 text-slate-900 dark:text-white">¡Rompecabezas Completado!</h1>
+                <p class="text-3xl font-bold text-fuchsia-600 mb-2">${percentage}%</p>
+                <p class="text-lg text-slate-600 dark:text-slate-400">${this.correctAnswers}/${total} respuestas correctas</p>
+                <p class="text-2xl font-bold text-slate-900 dark:text-white mt-4">+${this.score} puntos</p>
+            </div>
+
+            <div class="space-y-4">
+                <button onclick="Juegos.startRompecabezas()" class="w-full flex items-center justify-center gap-2 bg-fuchsia-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-fuchsia-700 transition-all hover:shadow-lg">
+                    <span class="material-symbols-outlined text-xl">replay</span>
+                    Intentar de Nuevo
+                </button>
+                <button onclick="Juegos.gameType = 'menu'; Juegos.refresh()" class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 hover:shadow-md transition-all">
+                    <span class="material-symbols-outlined text-xl">arrow_back</span>
+                    Volver al Menú
+                </button>
+            </div>
+        </div>
+        `;
+        document.getElementById('app-container').innerHTML = html;
     },
 
     answerVerdaderoFalso(userAnswer) {

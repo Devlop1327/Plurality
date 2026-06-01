@@ -5,6 +5,7 @@ const Storage = {
     DARK_MODE_KEY: 'plurality_dark_mode',
     GAME_SCORE_KEY: 'plurality_game_score',
     QUIZ_RESULTS_KEY: 'plurality_quiz_results',
+    BADGES_KEY: 'plurality_badges',
     USER_NAME_KEY: 'plurality_user_name',
 
     // Initialize storage
@@ -22,7 +23,9 @@ const Storage = {
                     quiensoy: 0,
                     matching: 0,
                     categorizacion: 0,
-                    verdaderofalso: 0
+                    verdaderofalso: 0,
+                    rompecabezas: 0,
+                    memory: 0
                 }
             });
         }
@@ -46,6 +49,15 @@ const Storage = {
         const progress = this.getProgress();
         progress[module] = Math.min(percentage, 100);
         this.saveProgress(progress);
+        // Re-evaluate badges when module progress changes
+        const newly = this.evaluateBadges();
+        if (newly && newly.length && window.Toast) {
+            newly.forEach(id => {
+                const b = this.getBadges().find(x => x.id === id);
+                const title = b ? b.title : 'Medalla';
+                Toast.show('Medalla desbloqueada', `${title} desbloqueada. ¡Felicidades!`);
+            });
+        }
     },
 
     getTotalProgress() {
@@ -65,6 +77,45 @@ const Storage = {
         return score ? JSON.parse(score) : { points: 0, level: 1 };
     },
 
+    // Badges and profile helpers
+    getBadges() {
+        const raw = localStorage.getItem(this.BADGES_KEY);
+        if (raw) return JSON.parse(raw);
+
+        // default badge set - locked/unlocked based on simple rules
+        const progress = this.getProgress();
+        const score = this.getGameScore();
+        const defaults = [
+            { id: 'aliado_pro', title: 'Aliado Pro', desc: 'Excelencia en apoyo activo', unlocked: score.points >= 100 },
+            { id: 'experto_identidad', title: 'Experto en Identidad', desc: 'Dominio teórico profundo', unlocked: progress.educativo >= 50 },
+            { id: 'guardian_inclusion', title: 'Guardián de Inclusión', desc: 'Especialista en protocolos de seguridad', unlocked: progress.juegos >= 50 },
+            { id: 'lider_global', title: 'Líder Global', desc: 'Pendiente de logro', unlocked: false }
+        ];
+        localStorage.setItem(this.BADGES_KEY, JSON.stringify(defaults));
+        return defaults;
+    },
+
+    addBadge(badgeId) {
+        const badges = this.getBadges();
+        const idx = badges.findIndex(b => b.id === badgeId);
+        if (idx >= 0) {
+            badges[idx].unlocked = true;
+            localStorage.setItem(this.BADGES_KEY, JSON.stringify(badges));
+        }
+    },
+
+    getUserProfile() {
+        const name = this.getUserName();
+        const score = this.getGameScore();
+        const progress = this.getProgress();
+        return {
+            name,
+            xp: score.points || 0,
+            level: score.level || 1,
+            certificates: progress.certificates || 0
+        };
+    },
+
     addGamePoints(points, gameType = 'general') {
         const progress = this.getProgress();
         progress.totalPoints = (progress.totalPoints || 0) + points;
@@ -77,11 +128,16 @@ const Storage = {
                 quiensoy: 0,
                 matching: 0,
                 categorizacion: 0,
-                verdaderofalso: 0
+                verdaderofalso: 0,
+                rompecabezas: 0,
+                memory: 0
             };
         }
 
-        if (gameType && progress.gamePoints.hasOwnProperty(gameType)) {
+        if (gameType) {
+            if (!progress.gamePoints.hasOwnProperty(gameType)) {
+                progress.gamePoints[gameType] = 0;
+            }
             progress.gamePoints[gameType] += points;
         }
 
@@ -93,7 +149,56 @@ const Storage = {
         score.level = Math.floor(score.points / 50) + 1;
         this.saveGameScore(score);
 
+        // Re-evaluate badge unlocks after points change
+        const newly = this.evaluateBadges();
+        if (newly && newly.length && window.Toast) {
+            newly.forEach(id => {
+                const b = this.getBadges().find(x => x.id === id);
+                const title = b ? b.title : 'Medalla';
+                Toast.show('Medalla desbloqueada', `${title} desbloqueada. ¡Felicidades!`);
+            });
+        }
+
         return progress;
+    },
+
+    evaluateBadges() {
+        const badges = this.getBadges();
+        const progress = this.getProgress();
+        const score = this.getGameScore();
+        const total = this.getTotalProgress();
+
+        const newlyUnlocked = [];
+
+        // Rule: Aliado Pro -> 100 XP
+        if (score.points >= 100) {
+            const b = badges.find(x => x.id === 'aliado_pro');
+            if (b && !b.unlocked) { b.unlocked = true; newlyUnlocked.push(b.id); }
+        }
+
+        // Rule: Experto en Identidad -> educativo >= 50
+        if ((progress.educativo || 0) >= 50) {
+            const b = badges.find(x => x.id === 'experto_identidad');
+            if (b && !b.unlocked) { b.unlocked = true; newlyUnlocked.push(b.id); }
+        }
+
+        // Rule: Guardián de Inclusión -> juegos >= 50
+        if ((progress.juegos || 0) >= 50) {
+            const b = badges.find(x => x.id === 'guardian_inclusion');
+            if (b && !b.unlocked) { b.unlocked = true; newlyUnlocked.push(b.id); }
+        }
+
+        // Rule: Líder Global -> total progress == 100
+        if (total === 100) {
+            const b = badges.find(x => x.id === 'lider_global');
+            if (b && !b.unlocked) { b.unlocked = true; newlyUnlocked.push(b.id); }
+        }
+
+        if (newlyUnlocked.length > 0) {
+            localStorage.setItem(this.BADGES_KEY, JSON.stringify(badges));
+        }
+
+        return newlyUnlocked;
     },
 
     // Quiz Results
