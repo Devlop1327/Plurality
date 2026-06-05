@@ -148,6 +148,7 @@ html,
   line-height: 1.5;
   /* 1 */
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%; /* eslint-disable-line */
   /* 2 */
   -moz-tab-size: 4;
   /* 3 */
@@ -348,6 +349,7 @@ input:where([type='button']),
 input:where([type='reset']),
 input:where([type='submit']) {
   -webkit-appearance: button;
+  appearance: button;
   /* 1 */
   background-color: transparent;
   /* 2 */
@@ -395,6 +397,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 
 [type='search'] {
   -webkit-appearance: textfield;
+  appearance: textfield;
   /* 1 */
   outline-offset: -2px;
   /* 2 */
@@ -534,8 +537,6 @@ embed,
 object {
   display: block;
   /* 1 */
-  vertical-align: middle;
-  /* 2 */
 }
 
 /*
@@ -3711,4 +3712,98 @@ h1, h2, h3 {
   .xl\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+}
+
+/* ============================
+   ESTILOS DE ALTO CONTRASTE
+   ============================ */
+
+body.high-contrast {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+body.high-contrast *,
+body.high-contrast *::before,
+body.high-contrast *::after {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+body.high-contrast header,
+body.high-contrast footer,
+body.high-contrast nav,
+body.high-contrast .bg-white,
+body.high-contrast .bg-slate-50,
+body.high-contrast .bg-slate-100 {
+  background-color: #000000 !important;
+}
+
+body.high-contrast .dark\:bg-slate-900,
+body.high-contrast .dark\:bg-slate-800 {
+  background-color: #000000 !important;
+}
+
+body.high-contrast button,
+body.high-contrast a,
+body.high-contrast input,
+body.high-contrast select,
+body.high-contrast textarea {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+body.high-contrast button:hover,
+body.high-contrast a:hover {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+body.high-contrast .text-slate-600,
+body.high-contrast .text-slate-700,
+body.high-contrast .text-slate-900,
+body.high-contrast .dark\:text-slate-300,
+body.high-contrast .dark\:text-slate-400 {
+  color: #ffffff !important;
+}
+
+body.high-contrast .text-\[\\#7E57C2\],
+body.high-contrast .dark\:text-\[\\#b39ddb\] {
+  color: #ffff00 !important;
+}
+
+body.high-contrast .bg-\[\\#7E57C2\],
+body.high-contrast .bg-purple-100,
+body.high-contrast .dark\:bg-purple-900 {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
+}
+
+body.high-contrast .border-slate-200,
+body.high-contrast .border-slate-800,
+body.high-contrast .dark\:border-slate-700 {
+  border-color: #ffffff !important;
+}
+
+body.high-contrast .shadow-sm,
+body.high-contrast .shadow-lg {
+  box-shadow: 0 0 0 2px #ffffff !important;
+}
+
+body.high-contrast #accessibility-panel {
+  background-color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+body.high-contrast .bg-slate-100,
+body.high-contrast .dark\:bg-slate-700 {
+  background-color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+body.high-contrast .bg-purple-100,
+body.high-contrast .dark\:bg-purple-900 {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
 }
