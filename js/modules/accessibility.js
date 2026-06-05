@@ -32,6 +32,15 @@ const AccessibilityManager = {
                 this.setFontSize(e.target.value);
             });
         }
+
+        // Listener para el botón de alto contraste (evita depender de inline onclick)
+        const contrastBtn = document.getElementById('contrast-btn');
+        if (contrastBtn) {
+            contrastBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggleContrast();
+            });
+        }
     },
 
     toggleContrast() {
@@ -91,4 +100,11 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => AccessibilityManager.init());
 } else {
     AccessibilityManager.init();
+}
+
+// Hacer accesible desde `window` para handlers inline y entornos bundle/Module
+try {
+    window.AccessibilityManager = AccessibilityManager;
+} catch (e) {
+    // en entornos sin window (SSR) ignorar
 }

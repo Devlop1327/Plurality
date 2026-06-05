@@ -6,6 +6,10 @@ module.exports = {
     "./**/*.html",
     "!./node_modules/**/*",
   ],
+  // Evitar que Tailwind purge la clase usada para alto contraste
+  safelist: [
+    'high-contrast'
+  ],
   darkMode: "class",
   theme: {
     extend: {
