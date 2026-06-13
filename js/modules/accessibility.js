@@ -19,6 +19,13 @@ const AccessibilityManager = {
             // ensure inline styles are applied when loading stored preference
             this.addInlineContrastStyles();
             this.updateContrastButtonState(true);
+        } else {
+            // ensure no leftover inline styles or classes remain
+            this.removeInlineContrastStyles();
+            try { document.documentElement.classList.remove(this.CONTRAST_CLASS); } catch(e){}
+            try { document.body.classList.remove(this.CONTRAST_CLASS); } catch(e){}
+            document.querySelectorAll('.' + this.CONTRAST_CLASS).forEach(el => el.classList.remove(this.CONTRAST_CLASS));
+            this.updateContrastButtonState(false);
         }
 
         // Cargar tamaño de fuente
@@ -161,8 +168,17 @@ button:hover, a:hover { background-color: #fff !important; color: #000 !importan
     },
 
     removeInlineContrastStyles() {
+        // remove inline style element if present
         const st = document.getElementById('hc-inline-styles');
-        if (st) st.parentNode.removeChild(st);
+        if (st && st.parentNode) st.parentNode.removeChild(st);
+        // remove classes from root/body and any elements
+        try { document.documentElement.classList.remove(this.CONTRAST_CLASS); } catch(e){}
+        try { document.body.classList.remove(this.CONTRAST_CLASS); } catch(e){}
+        document.querySelectorAll('.' + this.CONTRAST_CLASS).forEach(el => el.classList.remove(this.CONTRAST_CLASS));
+        // update localStorage
+        try { localStorage.setItem(this.CONTRAST_KEY, 'false'); } catch(e){}
+        // force a quick reflow to ensure styles are recomputed
+        try { void document.body.offsetHeight; } catch(e){}
     },
 
     updateContrastButtonState(isEnabled) {
