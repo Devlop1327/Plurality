@@ -784,6 +784,15 @@ input:where([type='file']):focus {
   }
 }
 
+/* Footer accessibility panel styles */
+.footer-accessibility {
+  width: 100%;
+  padding-top: 8px;
+}
+.footer-accessibility #contrast-btn {
+  box-shadow: 0 6px 18px rgba(2,6,23,0.35);
+}
+
 /* Accessibility panel collapsed/expanded styles */
 #accessibility-panel {
   transition: width 0.35s cubic-bezier(.2,.9,.2,1), height 0.35s cubic-bezier(.2,.9,.2,1), border-radius 0.35s, padding 0.25s, transform 0.35s;

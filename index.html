@@ -60,21 +60,7 @@
             <span class="material-symbols-outlined text-lg">contrast</span>
         </button>
         <div class="panel-content flex flex-col gap-3 min-w-max">
-            <!-- Alto Contraste -->
-            <button id="contrast-btn" class="flex items-center gap-2 px-4 py-2 rounded bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition text-sm font-semibold text-slate-700 dark:text-slate-300"
-                title="Activar/Desactivar Alto Contraste">
-                <span class="material-symbols-outlined text-base">contrast</span>
-                <span>Alto Contraste</span>
-            </button>
-            
-            <!-- Tamaño de Fuente -->
-            <div class="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 rounded">
-                <span class="material-symbols-outlined text-base text-slate-700 dark:text-slate-300">text_fields</span>
-                <input type="range" id="font-size-slider" min="12" max="20" value="16" 
-                    class="w-24 h-2 bg-slate-300 dark:bg-slate-600 rounded-lg appearance-none cursor-pointer"
-                    title="Ajustar tamaño de fuente">
-                <span id="font-size-value" class="text-sm font-semibold text-slate-700 dark:text-slate-300 min-w-[2rem]">16px</span>
-            </div>
+            <!-- (Slider moved to footer) -->
         </div>
     </div>
 
@@ -89,6 +75,22 @@
             <div>
                 <p class="font-semibold text-slate-900 dark:text-white">Acerca de Plurality</p>
                 <p>Plurality es una plataforma educativa diseñada para aprender sobre diversidad, inclusión, género y derechos a través de contenidos interactivos y actividades lúdicas.</p>
+            </div>
+            <!-- Panel de accesibilidad en el footer (Alto Contraste) -->
+            <div id="footer-accessibility" class="footer-accessibility flex justify-end items-center gap-4">
+                <button id="contrast-btn" class="flex items-center gap-2 px-4 py-2 rounded bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition text-sm font-semibold text-slate-700 dark:text-slate-300"
+                    title="Activar/Desactivar Alto Contraste">
+                    <span class="material-symbols-outlined text-base">contrast</span>
+                    <span>Alto Contraste</span>
+                </button>
+                <!-- Tamaño de Fuente (moved here) -->
+                <div class="flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-slate-700 rounded">
+                    <span class="material-symbols-outlined text-base text-slate-700 dark:text-slate-300">text_fields</span>
+                    <input type="range" id="font-size-slider" min="12" max="20" value="16"
+                        class="w-36 h-2 bg-slate-300 dark:bg-slate-600 rounded-lg appearance-none cursor-pointer"
+                        title="Ajustar tamaño de fuente">
+                    <span id="font-size-value" class="text-sm font-semibold text-slate-700 dark:text-slate-300 min-w-[2rem]">16px</span>
+                </div>
             </div>
             <p>© 2026 Plurality - Educación en Género y Diversidad</p>
         </div>
