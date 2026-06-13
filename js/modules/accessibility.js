@@ -5,6 +5,7 @@ const AccessibilityManager = {
     CONTRAST_KEY: 'plurality-high-contrast',
 
     init() {
+        console.log('[AccessibilityManager] init');
         this.loadSettings();
         this.setupListeners();
         this.ensureDefaultState();
@@ -36,6 +37,7 @@ const AccessibilityManager = {
     },
 
     setupListeners() {
+        console.log('[AccessibilityManager] setupListeners start');
         // Listener para el slider de fuente
         const slider = document.getElementById('font-size-slider');
         if (slider) {
@@ -55,6 +57,7 @@ const AccessibilityManager = {
 
         // Listener para el botón de alto contraste (evita depender de inline onclick)
         const contrastBtn = document.getElementById('contrast-btn');
+        console.log('[AccessibilityManager] contrastBtn=', contrastBtn);
         if (contrastBtn) {
             contrastBtn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -107,6 +110,7 @@ const AccessibilityManager = {
         // default allow automatic cycling unless `data-autocycle="false"` is present
         const autoAttr = this.panel ? this.panel.getAttribute('data-autocycle') : null;
         this.autoCycleActive = (autoAttr === 'false') ? false : true;
+        console.log('[AccessibilityManager] autoCycleActive=', this.autoCycleActive);
         if (this.autoCycleActive) this.startAutoCycle();
     },
 
@@ -128,6 +132,7 @@ const AccessibilityManager = {
 
     toggleContrast() {
         const isEnabled = document.body.classList.contains(this.CONTRAST_CLASS);
+        console.log('[AccessibilityManager] toggleContrast, currentlyEnabled=', isEnabled);
 
         if (isEnabled) {
             // remove class from common root elements
@@ -140,6 +145,7 @@ const AccessibilityManager = {
             // ensure localStorage cleared
             localStorage.setItem(this.CONTRAST_KEY, 'false');
             this.updateContrastButtonState(false);
+            console.log('[AccessibilityManager] contrast disabled — cleaned up');
         } else {
             document.body.classList.add(this.CONTRAST_CLASS);
             try { document.documentElement.classList.add(this.CONTRAST_CLASS); } catch(e){}
@@ -147,6 +153,16 @@ const AccessibilityManager = {
             this.addInlineContrastStyles();
             localStorage.setItem(this.CONTRAST_KEY, 'true');
             this.updateContrastButtonState(true);
+            // verify applied
+            const applied = document.body.classList.contains(this.CONTRAST_CLASS) && !!document.getElementById('hc-inline-styles');
+            console.log('[AccessibilityManager] contrast enabled, applied=', applied);
+            if (!applied) {
+                console.warn('[AccessibilityManager] fallback: re-applying inline styles and classes');
+                try { document.documentElement.classList.add(this.CONTRAST_CLASS); } catch(e){}
+                try { document.body.classList.add(this.CONTRAST_CLASS); } catch(e){}
+                this.removeInlineContrastStyles();
+                this.addInlineContrastStyles();
+            }
         }
     },
 
