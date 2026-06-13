@@ -41,6 +41,43 @@ const AccessibilityManager = {
                 this.toggleContrast();
             });
         }
+
+        // Panel collapse/expand toggle (small circular button)
+        this.panel = document.getElementById('accessibility-panel');
+        this.toggleBtn = document.getElementById('accessibility-toggle');
+        this.panelContent = this.panel ? this.panel.querySelector('.panel-content') : null;
+
+        if (this.toggleBtn) {
+            this.toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Evitar que el click burbujee al panel padre y provoque un segundo toggle
+                if (e.stopPropagation) e.stopPropagation();
+                this.handleUserInteraction();
+                this.togglePanel();
+            });
+        }
+
+        if (this.panel) {
+            // Clicking the panel header area toggles
+            this.panel.addEventListener('click', (e) => {
+                // ignore clicks that interact with inner controls (they will call handleUserInteraction themselves)
+                if (e.target.closest('#contrast-btn') || e.target.closest('#font-size-slider') || e.target.closest('#accessibility-toggle')) return;
+                this.handleUserInteraction();
+                this.togglePanel();
+            });
+
+            // Any pointer interaction counts as user activity
+            ['pointerenter','pointerdown','focusin'].forEach(ev => {
+                this.panel.addEventListener(ev, (evt) => {
+                    this.handleUserInteraction();
+                });
+            });
+        }
+
+        // Start the automatic collapse/expand cycle
+        this.autoCycleInterval = null;
+        this.autoCycleActive = true; // allow automatic cycling
+        this.startAutoCycle();
     },
 
     toggleContrast() {
@@ -92,6 +129,44 @@ const AccessibilityManager = {
         if (slider) {
             slider.value = size;
         }
+    }
+    ,
+
+    // Panel control methods
+    togglePanel() {
+        if (!this.panel) return;
+        const isCollapsed = this.panel.classList.toggle('accessibility-collapsed');
+        // show/hide content handled by CSS (visibility of the toggle button via CSS rules)
+    },
+
+    startAutoCycle() {
+        // Cycle collapsed <-> expanded every 5s when active
+        if (this.autoCycleInterval) clearInterval(this.autoCycleInterval);
+        this.autoCycleInterval = setInterval(() => {
+            if (!this.autoCycleActive) return;
+            // toggle panel state
+            if (this.panel) this.panel.classList.toggle('accessibility-collapsed');
+        }, 5000);
+    },
+
+    stopAutoCycle() {
+        this.autoCycleActive = false;
+        if (this.autoCycleInterval) {
+            clearInterval(this.autoCycleInterval);
+            this.autoCycleInterval = null;
+        }
+    },
+
+    // Pause auto cycle temporarily on user interaction
+    handleUserInteraction() {
+        // stop automatic cycling for 30s, then resume
+        this.autoCycleActive = false;
+        if (this._autoCycleResumeTimeout) clearTimeout(this._autoCycleResumeTimeout);
+        this._autoCycleResumeTimeout = setTimeout(() => {
+            this.autoCycleActive = true;
+            // ensure interval is running
+            if (!this.autoCycleInterval) this.startAutoCycle();
+        }, 30000);
     }
 };
 

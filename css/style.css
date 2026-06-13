@@ -784,6 +784,67 @@ input:where([type='file']):focus {
   }
 }
 
+/* Accessibility panel collapsed/expanded styles */
+#accessibility-panel {
+  transition: width 0.35s cubic-bezier(.2,.9,.2,1), height 0.35s cubic-bezier(.2,.9,.2,1), border-radius 0.35s, padding 0.25s, transform 0.35s;
+}
+
+#accessibility-panel .accessibility-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+}
+
+.accessibility-collapsed {
+  width: 56px !important;
+  height: 56px !important;
+  padding: 6px !important;
+  border-radius: 9999px !important;
+  overflow: visible;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.accessibility-collapsed .panel-content {
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+  height: 0;
+  width: 0;
+}
+
+.accessibility-collapsed .accessibility-toggle {
+  /* Make the toggle cover the whole collapsed panel so any touch toggles */
+  display: inline-flex;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  z-index: 60;
+  pointer-events: auto;
+}
+
+/* Hide the floating toggle when the panel is expanded */
+#accessibility-panel:not(.accessibility-collapsed) .accessibility-toggle {
+  display: none;
+}
+
+.panel-content {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Small visual tweak for the floating button when visible */
+.accessibility-toggle {
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+
 .pointer-events-none {
   pointer-events: none;
 }
