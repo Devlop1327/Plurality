@@ -16,6 +16,8 @@ const AccessibilityManager = {
         if (contrastEnabled) {
             document.body.classList.add(this.CONTRAST_CLASS);
             try { document.documentElement.classList.add(this.CONTRAST_CLASS); } catch(e){}
+            // ensure inline styles are applied when loading stored preference
+            this.addInlineContrastStyles();
             this.updateContrastButtonState(true);
         }
 
@@ -169,9 +171,13 @@ button:hover, a:hover { background-color: #fff !important; color: #000 !importan
             if (isEnabled) {
                 btn.classList.add('bg-purple-100', 'dark:bg-purple-900');
                 btn.classList.remove('bg-slate-100', 'dark:bg-slate-700');
+                btn.setAttribute('aria-pressed','true');
+                btn.title = 'Desactivar Alto Contraste';
             } else {
                 btn.classList.remove('bg-purple-100', 'dark:bg-purple-900');
                 btn.classList.add('bg-slate-100', 'dark:bg-slate-700');
+                btn.setAttribute('aria-pressed','false');
+                btn.title = 'Activar Alto Contraste';
             }
         }
     },
