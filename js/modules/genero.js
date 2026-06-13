@@ -10,20 +10,11 @@ const Genero = {
 
             <div class="grid gap-6">
                 <section class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg p-8 border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-3xl font-semibold text-slate-900 dark:text-white mb-4">Inicio (Portada)</h2>
                     <div class="space-y-3 text-slate-700 dark:text-slate-300">
                         <p><strong>Asignatura:</strong> Género, Pluralidad y Diversidades (Semestre 1 - 2026, Jornada Noche)</p>
                         <p><strong>Institución:</strong> Universidad del Valle</p>
                         <p><strong>Docente:</strong> Rubiela Perdomo Medina</p>
-                    </div>
-                    <div class="mt-6 bg-slate-50 dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-700">
-                        <h3 class="text-2xl font-semibold text-[#1f4e79] dark:text-[#8ab4f8] mb-3">Equipo 1 - Integrantes</h3>
-                        <ul class="list-disc list-inside text-slate-700 dark:text-slate-300 space-y-2">
-                            <li>Escobar Arroyo Karen Dayana</li>
-                            <li>Riscos Vivas Kevin Yair</li>
-                            <li>Hinojosa López Alexis</li>
-                        </ul>
-                    </div>
+                    
                 </section>
 
                 <section class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg p-8 border border-slate-200 dark:border-slate-700">
