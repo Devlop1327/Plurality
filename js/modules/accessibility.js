@@ -7,6 +7,7 @@ const AccessibilityManager = {
     init() {
         this.loadSettings();
         this.setupListeners();
+        this.ensureDefaultState();
     },
 
     loadSettings() {
@@ -74,10 +75,28 @@ const AccessibilityManager = {
             });
         }
 
-        // Start the automatic collapse/expand cycle
+        // Start the automatic collapse/expand cycle depending on panel attribute
         this.autoCycleInterval = null;
-        this.autoCycleActive = true; // allow automatic cycling
-        this.startAutoCycle();
+        // default allow automatic cycling unless `data-autocycle="false"` is present
+        const autoAttr = this.panel ? this.panel.getAttribute('data-autocycle') : null;
+        this.autoCycleActive = (autoAttr === 'false') ? false : true;
+        if (this.autoCycleActive) this.startAutoCycle();
+    },
+
+    ensureDefaultState() {
+        // ensure panel exists
+        if (!this.panel) this.panel = document.getElementById('accessibility-panel');
+        if (!this.panel) return;
+
+        const defaultState = this.panel.getAttribute('data-default-state');
+        // default to collapsed unless explicitly set to 'expanded'
+        if (defaultState === 'expanded') {
+            this.panel.classList.remove('accessibility-collapsed');
+        } else {
+            if (!this.panel.classList.contains('accessibility-collapsed')) {
+                this.panel.classList.add('accessibility-collapsed');
+            }
+        }
     },
 
     toggleContrast() {
