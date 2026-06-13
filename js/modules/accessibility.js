@@ -121,10 +121,14 @@ const AccessibilityManager = {
         const isEnabled = document.body.classList.contains(this.CONTRAST_CLASS);
 
         if (isEnabled) {
-            document.body.classList.remove(this.CONTRAST_CLASS);
+            // remove class from common root elements
             try { document.documentElement.classList.remove(this.CONTRAST_CLASS); } catch(e){}
+            try { document.body.classList.remove(this.CONTRAST_CLASS); } catch(e){}
+            // also remove from any other element that might have been tagged
+            document.querySelectorAll('.' + this.CONTRAST_CLASS).forEach(el => el.classList.remove(this.CONTRAST_CLASS));
             // remove inline styles if present
             this.removeInlineContrastStyles();
+            // ensure localStorage cleared
             localStorage.setItem(this.CONTRAST_KEY, 'false');
             this.updateContrastButtonState(false);
         } else {
