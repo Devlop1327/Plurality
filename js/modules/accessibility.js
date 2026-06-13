@@ -15,6 +15,7 @@ const AccessibilityManager = {
         const contrastEnabled = localStorage.getItem(this.CONTRAST_KEY) === 'true';
         if (contrastEnabled) {
             document.body.classList.add(this.CONTRAST_CLASS);
+            try { document.documentElement.classList.add(this.CONTRAST_CLASS); } catch(e){}
             this.updateContrastButtonState(true);
         }
 
@@ -29,8 +30,17 @@ const AccessibilityManager = {
         // Listener para el slider de fuente
         const slider = document.getElementById('font-size-slider');
         if (slider) {
+            // throttle updates to avoid heavy reflows while dragging
+            let debounceId = null;
             slider.addEventListener('input', (e) => {
-                this.setFontSize(e.target.value);
+                const val = e.target.value;
+                const display = document.getElementById('font-size-value');
+                if (display) display.textContent = val + 'px';
+                if (debounceId) clearTimeout(debounceId);
+                debounceId = setTimeout(() => {
+                    this.setFontSize(val);
+                    debounceId = null;
+                }, 100);
             });
         }
 
@@ -101,13 +111,15 @@ const AccessibilityManager = {
 
     toggleContrast() {
         const isEnabled = document.body.classList.contains(this.CONTRAST_CLASS);
-        
+
         if (isEnabled) {
             document.body.classList.remove(this.CONTRAST_CLASS);
+            try { document.documentElement.classList.remove(this.CONTRAST_CLASS); } catch(e){}
             localStorage.setItem(this.CONTRAST_KEY, 'false');
             this.updateContrastButtonState(false);
         } else {
             document.body.classList.add(this.CONTRAST_CLASS);
+            try { document.documentElement.classList.add(this.CONTRAST_CLASS); } catch(e){}
             localStorage.setItem(this.CONTRAST_KEY, 'true');
             this.updateContrastButtonState(true);
         }
