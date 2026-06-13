@@ -205,18 +205,18 @@ button:hover, a:hover { background-color: #fff !important; color: #000 !importan
         try { localStorage.setItem(this.CONTRAST_KEY, 'false'); } catch(e){}
         // force a quick reflow to ensure styles are recomputed
         try { void document.body.offsetHeight; } catch(e){}
-        // remove inline style properties fallback if previously applied
+        // ensure inline style properties are removed from html/body
         try {
-            if (document.documentElement.getAttribute('data-hc-inline-attr')) {
-                document.documentElement.style.removeProperty('background-color');
-                document.documentElement.style.removeProperty('color');
-                document.documentElement.removeAttribute('data-hc-inline-attr');
-            }
-            if (document.body.getAttribute('data-hc-inline-attr')) {
-                document.body.style.removeProperty('background-color');
-                document.body.style.removeProperty('color');
-                document.body.removeAttribute('data-hc-inline-attr');
-            }
+            document.documentElement.style.removeProperty('background-color');
+            document.documentElement.style.removeProperty('color');
+            document.documentElement.style.removeProperty('background');
+            document.documentElement.removeAttribute('data-hc-inline-attr');
+        } catch(e) {}
+        try {
+            document.body.style.removeProperty('background-color');
+            document.body.style.removeProperty('color');
+            document.body.style.removeProperty('background');
+            document.body.removeAttribute('data-hc-inline-attr');
         } catch(e) {}
     },
 
