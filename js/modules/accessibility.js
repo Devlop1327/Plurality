@@ -162,6 +162,16 @@ const AccessibilityManager = {
                 try { document.body.classList.add(this.CONTRAST_CLASS); } catch(e){}
                 this.removeInlineContrastStyles();
                 this.addInlineContrastStyles();
+                // final fallback: apply inline style properties with !important to html/body
+                try {
+                    document.documentElement.style.setProperty('background-color', '#000', 'important');
+                    document.documentElement.style.setProperty('color', '#fff', 'important');
+                    document.body.style.setProperty('background-color', '#000', 'important');
+                    document.body.style.setProperty('color', '#fff', 'important');
+                    document.documentElement.setAttribute('data-hc-inline-attr', '1');
+                    document.body.setAttribute('data-hc-inline-attr', '1');
+                    console.log('[AccessibilityManager] applied inline style properties as final fallback');
+                } catch(e) { console.error('[AccessibilityManager] final fallback failed', e); }
             }
         }
     },
@@ -195,6 +205,19 @@ button:hover, a:hover { background-color: #fff !important; color: #000 !importan
         try { localStorage.setItem(this.CONTRAST_KEY, 'false'); } catch(e){}
         // force a quick reflow to ensure styles are recomputed
         try { void document.body.offsetHeight; } catch(e){}
+        // remove inline style properties fallback if previously applied
+        try {
+            if (document.documentElement.getAttribute('data-hc-inline-attr')) {
+                document.documentElement.style.removeProperty('background-color');
+                document.documentElement.style.removeProperty('color');
+                document.documentElement.removeAttribute('data-hc-inline-attr');
+            }
+            if (document.body.getAttribute('data-hc-inline-attr')) {
+                document.body.style.removeProperty('background-color');
+                document.body.style.removeProperty('color');
+                document.body.removeAttribute('data-hc-inline-attr');
+            }
+        } catch(e) {}
     },
 
     updateContrastButtonState(isEnabled) {
