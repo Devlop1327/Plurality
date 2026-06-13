@@ -52,6 +52,14 @@ const AccessibilityManager = {
                 this.toggleContrast();
             });
         }
+        // Delegated listener as a fallback if element is replaced or rendered later
+        document.addEventListener('click', (e) => {
+            const c = e.target.closest ? e.target.closest('#contrast-btn') : null;
+            if (c) {
+                e.preventDefault();
+                this.toggleContrast();
+            }
+        });
 
         // Panel collapse/expand toggle (small circular button)
         this.panel = document.getElementById('accessibility-panel');
