@@ -123,14 +123,40 @@ const AccessibilityManager = {
         if (isEnabled) {
             document.body.classList.remove(this.CONTRAST_CLASS);
             try { document.documentElement.classList.remove(this.CONTRAST_CLASS); } catch(e){}
+            // remove inline styles if present
+            this.removeInlineContrastStyles();
             localStorage.setItem(this.CONTRAST_KEY, 'false');
             this.updateContrastButtonState(false);
         } else {
             document.body.classList.add(this.CONTRAST_CLASS);
             try { document.documentElement.classList.add(this.CONTRAST_CLASS); } catch(e){}
+            // inject inline styles to force contrast in environments where CSS classes may be overridden
+            this.addInlineContrastStyles();
             localStorage.setItem(this.CONTRAST_KEY, 'true');
             this.updateContrastButtonState(true);
         }
+    },
+
+    addInlineContrastStyles() {
+        if (document.getElementById('hc-inline-styles')) return;
+        const css = `
+/* Inline high contrast override */
+html, body, header, footer, nav, main, section, .bg-white, .bg-slate-50, .bg-slate-100 { background-color: #000 !important; color: #fff !important; }
+* { color: #fff !important; border-color: #fff !important; }
+button, a, input, select, textarea { background-color: #000 !important; color: #fff !important; border: 2px solid #fff !important; }
+button:hover, a:hover { background-color: #fff !important; color: #000 !important; }
+.text-slate-600, .text-slate-700, .text-slate-900, .dark\\:text-slate-300, .dark\\:text-slate-400 { color: #fff !important; }
+.bg-\\[\\#7E57C2\\], .bg-purple-100, .dark\\:bg-purple-900 { background-color: #ff0 !important; color: #000 !important; }
+`;
+        const st = document.createElement('style');
+        st.id = 'hc-inline-styles';
+        st.appendChild(document.createTextNode(css));
+        document.head.appendChild(st);
+    },
+
+    removeInlineContrastStyles() {
+        const st = document.getElementById('hc-inline-styles');
+        if (st) st.parentNode.removeChild(st);
     },
 
     updateContrastButtonState(isEnabled) {
