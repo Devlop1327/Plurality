@@ -1,6 +1,5 @@
 {
     "version": 2,
-    "public": true,
     "buildCommand": "npm run css:build",
     "outputDirectory": ".",
     "env": {
