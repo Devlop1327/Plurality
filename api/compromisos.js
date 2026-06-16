@@ -1,6 +1,9 @@
 // Vercel Serverless Function to handle commitments (compromisos)
-// Using native fetch to communicate with Vercel KV REST API (no npm packages needed)
+// Supports both Vercel KV (REST) and Redis Cloud / standard Redis (TCP via redis npm package)
 
+import { createClient } from 'redis';
+
+// Helper for HTTP-based Vercel KV REST API
 async function kvCommand(command) {
     if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
         throw new Error('Vercel KV environment variables are not set.');
@@ -26,6 +29,20 @@ async function kvCommand(command) {
     return data.result;
 }
 
+// Redis TCP Client management
+let redisClient = null;
+async function getRedisClient() {
+    const url = process.env.REDIS_URL || process.env.KV_URL;
+    if (!url) return null;
+    
+    if (!redisClient) {
+        redisClient = createClient({ url });
+        redisClient.on('error', (err) => console.error('Redis Client Error', err));
+        await redisClient.connect();
+    }
+    return redisClient;
+}
+
 export default async function handler(req, res) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -40,16 +57,44 @@ export default async function handler(req, res) {
         return res.status(200).end();
     }
 
-    const hasKv = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+    const hasRest = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+    let redisTcpClient = null;
+    let hasRedis = false;
+
+    try {
+        redisTcpClient = await getRedisClient();
+        hasRedis = !!redisTcpClient || hasRest;
+    } catch (e) {
+        console.error('Failed to initialize Redis TCP client:', e);
+        hasRedis = hasRest;
+    }
+
+    // Helper functions to get and set
+    async function getData() {
+        if (redisTcpClient) {
+            const val = await redisTcpClient.get('school_compromisos');
+            return val ? JSON.parse(val) : [];
+        } else if (hasRest) {
+            const rawData = await kvCommand(['GET', 'school_compromisos']);
+            return rawData ? JSON.parse(rawData) : [];
+        }
+        return [];
+    }
+
+    async function setData(list) {
+        if (redisTcpClient) {
+            await redisTcpClient.set('school_compromisos', JSON.stringify(list));
+        } else if (hasRest) {
+            await kvCommand(['SET', 'school_compromisos', JSON.stringify(list)]);
+        }
+    }
 
     try {
         if (req.method === 'GET') {
-            if (!hasKv) {
-                // Return empty array if KV is not configured, frontend will know it's in fallback mode
+            if (!hasRedis) {
                 return res.status(200).json({ status: 'fallback', data: [] });
             }
-            const rawData = await kvCommand(['GET', 'school_compromisos']);
-            const list = rawData ? JSON.parse(rawData) : [];
+            const list = await getData();
             return res.status(200).json({ status: 'online', data: list });
         }
 
@@ -59,17 +104,13 @@ export default async function handler(req, res) {
                 return res.status(400).json({ error: 'Nombre y compromiso son requeridos.' });
             }
 
-            if (!hasKv) {
-                return res.status(503).json({ error: 'Vercel KV is not configured.' });
+            if (!hasRedis) {
+                return res.status(503).json({ error: 'No Redis or Vercel KV store is configured.' });
             }
 
-            const rawData = await kvCommand(['GET', 'school_compromisos']);
-            const list = rawData ? JSON.parse(rawData) : [];
-            
-            // Add to the beginning of the list
+            const list = await getData();
             list.unshift({ nombre, compromiso, fecha });
-            
-            await kvCommand(['SET', 'school_compromisos', JSON.stringify(list)]);
+            await setData(list);
             
             return res.status(201).json({ success: true, item: { nombre, compromiso, fecha } });
         }
@@ -80,20 +121,18 @@ export default async function handler(req, res) {
                 return res.status(400).json({ error: 'El parámetro index es requerido.' });
             }
 
-            if (!hasKv) {
-                return res.status(503).json({ error: 'Vercel KV is not configured.' });
+            if (!hasRedis) {
+                return res.status(503).json({ error: 'No Redis or Vercel KV store is configured.' });
             }
 
-            const rawData = await kvCommand(['GET', 'school_compromisos']);
-            const list = rawData ? JSON.parse(rawData) : [];
-            
+            const list = await getData();
             const idx = parseInt(index);
             if (isNaN(idx) || idx < 0 || idx >= list.length) {
                 return res.status(400).json({ error: 'Índice fuera de rango.' });
             }
 
             list.splice(idx, 1);
-            await kvCommand(['SET', 'school_compromisos', JSON.stringify(list)]);
+            await setData(list);
             
             return res.status(200).json({ success: true });
         }
