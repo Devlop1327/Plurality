@@ -11,6 +11,9 @@ const app = {
 
     navigateTo(module) {
         this.currentModule = module;
+        if (module === 'compromisos') {
+            InteractiveComponents.muro.compromisosList = null;
+        }
         this.render();
         this.setupNavigation();
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -57,7 +60,6 @@ const app = {
                 content = Evaluacion.render();
                 break;
             case 'compromisos':
-                InteractiveComponents.muro.compromisosList = null;
                 content = InteractiveComponents.muro.render();
                 break;
             case 'puntos':
