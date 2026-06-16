@@ -57,6 +57,7 @@ const app = {
                 content = Evaluacion.render();
                 break;
             case 'compromisos':
+                InteractiveComponents.muro.compromisosList = null;
                 content = InteractiveComponents.muro.render();
                 break;
             case 'puntos':

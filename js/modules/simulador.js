@@ -1,16 +1,32 @@
 // Decision Simulator Module
 const Simulador = {
+    started: false,
     currentScenarioIdx: 0,
     responses: [],
     totalScore: 0,
+    scenariosList: [],
+    validationError: '',
+
+    reset() {
+        this.started = false;
+        this.currentScenarioIdx = 0;
+        this.responses = [];
+        this.totalScore = 0;
+        this.scenariosList = [];
+        this.validationError = '';
+    },
 
     render() {
-        if (this.currentScenarioIdx >= quizData.scenarioDecisions.length) {
+        if (!this.started) {
+            return this.renderStartScreen();
+        }
+
+        if (this.currentScenarioIdx >= this.scenariosList.length) {
             return this.renderResults();
         }
 
-        const scenario = quizData.scenarioDecisions[this.currentScenarioIdx];
-        const progress = Math.round(((this.currentScenarioIdx + 1) / quizData.scenarioDecisions.length) * 100);
+        const scenario = this.scenariosList[this.currentScenarioIdx];
+        const progress = Math.round(((this.currentScenarioIdx + 1) / this.scenariosList.length) * 100);
 
         return `
         <div class="page-transition max-w-3xl mx-auto px-8 py-12">
@@ -18,7 +34,7 @@ const Simulador = {
             <div class="mb-8">
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-2xl font-headline font-bold">Simulador de Empatía</h2>
-                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-400">Escenario ${this.currentScenarioIdx + 1}/${quizData.scenarioDecisions.length}</span>
+                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-400">Escenario ${this.currentScenarioIdx + 1}/${this.scenariosList.length}</span>
                 </div>
                 <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
                     <div class="progress-bar" style="width: ${progress}%"></div>
@@ -40,51 +56,80 @@ const Simulador = {
                 ${scenario.choices.map((choice, idx) => this.renderChoice(choice, idx)).join('')}
             </div>
 
-            <button onclick="app.navigateTo('dashboard')" class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 hover:shadow-md transition-all">
+            <button onclick="Simulador.reset(); Simulador.refresh();" class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 hover:shadow-md transition-all">
                 <span class="material-symbols-outlined text-xl">arrow_back</span>
-                Volver
+                Volver al inicio
             </button>
         </div>
         `;
     },
 
-    renderChoice(choice, idx) {
-        let color = 'outline/10';
-        let hoverColor = 'hover:border-primary/50';
+    renderStartScreen() {
+        return `
+        <div class="page-transition max-w-xl mx-auto px-8 py-12 text-center">
+            <div class="bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-8 mb-8">
+                <span class="material-symbols-outlined text-6xl text-primary mb-4">favorite</span>
+                <h1 class="text-3xl font-headline font-bold mb-4">Simulador de Empatía</h1>
+                <p class="text-slate-600 dark:text-slate-400 mb-6">Ponte en los zapatos de otros compañeros y decide cómo actuar ante diferentes situaciones escolares cotidianas.</p>
+                
+                <div class="text-left mb-6">
+                    <label for="num-scenarios" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">¿Con cuántos escenarios quieres jugar hoy? (De 1 a 10)</label>
+                    <input type="number" id="num-scenarios" min="1" max="10" value="5" class="w-full px-4 py-3 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-primary focus:outline-none transition-colors">
+                    ${this.validationError ? `<p class="text-red-500 text-sm mt-2 font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-base">error</span>${this.validationError}</p>` : ''}
+                </div>
 
-        if (choice.impact === 'Positive') {
-            color = 'secondary/20';
-            hoverColor = 'hover:border-secondary/50';
-        } else if (choice.impact === 'Negative') {
-            color = 'error/20';
-            hoverColor = 'hover:border-error/50';
+                <button onclick="Simulador.submitStart()" class="w-full flex items-center justify-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 hover:shadow-lg transition-all">
+                    Comenzar juego
+                    <span class="material-symbols-outlined">play_arrow</span>
+                </button>
+            </div>
+            
+            <button onclick="app.navigateTo('dashboard')" class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 hover:shadow-md transition-all mx-auto">
+                <span class="material-symbols-outlined text-xl">arrow_back</span>
+                Volver al panel
+            </button>
+        </div>
+        `;
+    },
+
+    submitStart() {
+        const input = document.getElementById('num-scenarios');
+        if (!input) return;
+        const val = parseInt(input.value);
+        if (isNaN(val) || val < 1 || val > 10) {
+            this.validationError = 'El número de escenarios debe ser un valor entre 1 y 10.';
+            this.refresh();
+        } else {
+            this.validationError = '';
+            this.started = true;
+            // Mezclar y tomar los escenarios seleccionados
+            const shuffled = [...quizData.scenarioDecisions].sort(() => 0.5 - Math.random());
+            this.scenariosList = shuffled.slice(0, val);
+            this.currentScenarioIdx = 0;
+            this.responses = [];
+            this.totalScore = 0;
+            this.refresh();
         }
+    },
+
+    renderChoice(choice, idx) {
+        const color = 'slate-200 dark:border-slate-700';
+        const hoverColor = 'hover:border-primary/50';
 
         return `
         <button onclick="Simulador.chooseOption(${idx})" 
-                class="w-full text-left p-6 rounded-lg border-2 border-${color} dark:border-${color.replace('/20', '/40')} ${hoverColor} bg-white dark:bg-slate-800 transition-all hover:shadow-md">
+                class="w-full text-left p-6 rounded-lg border-2 border-${color} ${hoverColor} bg-white dark:bg-slate-800 transition-all hover:shadow-md">
             <div class="flex justify-between items-start gap-4">
                 <div class="flex-1">
-                    <p class="font-semibold text-base leading-relaxed">${choice.text}</p>
-                </div>
-                <div class="text-right flex-shrink-0">
-                    <span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${this.getImpactBadgeClass(choice.impact)}">
-                        ${choice.impact === 'Positive' ? '✓ Positivo' : choice.impact === 'Negative' ? '✗ Negativo' : '◈ Neutral'}
-                    </span>
+                    <p class="font-semibold text-base leading-relaxed text-slate-800 dark:text-slate-100">${choice.text}</p>
                 </div>
             </div>
         </button>
         `;
     },
 
-    getImpactBadgeClass(impact) {
-        if (impact === 'Positive') return 'bg-secondary/30 text-on-secondary';
-        if (impact === 'Negative') return 'bg-error/30 text-on-error';
-        return 'bg-tertiary/30 text-on-tertiary';
-    },
-
     chooseOption(idx) {
-        const scenario = quizData.scenarioDecisions[this.currentScenarioIdx];
+        const scenario = this.scenariosList[this.currentScenarioIdx];
         const choice = scenario.choices[idx];
 
         this.responses.push({
@@ -97,15 +142,11 @@ const Simulador = {
         this.totalScore += choice.points;
         this.currentScenarioIdx++;
 
-        if (this.currentScenarioIdx < quizData.scenarioDecisions.length) {
-            this.refresh();
-        } else {
-            this.refresh();
-        }
+        this.refresh();
     },
 
     renderResults() {
-        const maxScore = quizData.scenarioDecisions.length * 10;
+        const maxScore = this.scenariosList.length * 10;
         const percentage = Math.round((this.totalScore / maxScore) * 100);
 
         Storage.updateModuleProgress('simulador', 100);
@@ -143,12 +184,6 @@ const Simulador = {
             </div>
         </div>
         `;
-    },
-
-    reset() {
-        this.currentScenarioIdx = 0;
-        this.responses = [];
-        this.totalScore = 0;
     },
 
     refresh() {

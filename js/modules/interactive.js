@@ -122,9 +122,23 @@ const InteractiveComponents = {
     // ========== MURO DE COMPROMISOS ==========
     muro: {
         STORAGE_KEY: 'plurality-compromisos',
+        compromisosList: null,
+        loading: false,
 
         render() {
-            const compromisos = this.loadCompromisos();
+            if (this.compromisosList === null && !this.loading) {
+                this.loadCompromisosOnline();
+                return `
+                <div class="max-w-7xl mx-auto px-8 py-12 text-center">
+                    <div class="flex flex-col items-center justify-center py-12">
+                        <span class="material-symbols-outlined text-5xl text-purple-600 animate-spin">sync</span>
+                        <p class="text-slate-600 dark:text-slate-400 mt-4 font-semibold">Cargando compromisos del muro...</p>
+                    </div>
+                </div>
+                `;
+            }
+
+            const compromisos = this.compromisosList || [];
             
             let html = `
             <div class="max-w-7xl mx-auto px-8 py-12">
@@ -177,7 +191,32 @@ const InteractiveComponents = {
             return html;
         },
 
-        submitCompromiso(event) {
+        async loadCompromisosOnline() {
+            this.loading = true;
+            try {
+                const res = await fetch('/api/compromisos');
+                if (res.ok) {
+                    const result = await res.json();
+                    this.compromisosList = result.data || [];
+                } else {
+                    console.error('Failed to load commitments online, falling back to local storage.');
+                    this.compromisosList = this.loadCompromisosFallback();
+                }
+            } catch (err) {
+                console.error('Network error loading commitments, falling back to local storage.', err);
+                this.compromisosList = this.loadCompromisosFallback();
+            } finally {
+                this.loading = false;
+                app.render();
+            }
+        },
+
+        loadCompromisosFallback() {
+            const data = localStorage.getItem(this.STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        },
+
+        async submitCompromiso(event) {
             event.preventDefault();
             
             const nombre = document.getElementById('nombre').value.trim();
@@ -185,7 +224,6 @@ const InteractiveComponents = {
 
             if (!nombre || !compromiso) return;
 
-            const compromisos = this.loadCompromisos();
             const ahora = new Date();
             const fecha = ahora.toLocaleDateString('es-ES', { 
                 year: 'numeric', 
@@ -195,38 +233,59 @@ const InteractiveComponents = {
                 minute: '2-digit' 
             });
 
-            compromisos.push({
-                nombre,
-                compromiso,
-                fecha
-            });
+            const newItem = { nombre, compromiso, fecha };
 
-            this.saveCompromisos(compromisos);
-            
-            // Limpiar formulario
-            document.getElementById('nombre').value = '';
-            document.getElementById('compromiso').value = '';
-            
-            // Renderizar
+            // Optimistic update
+            if (this.compromisosList === null) this.compromisosList = [];
+            this.compromisosList.unshift(newItem);
             app.render();
-        },
 
-        deleteCompromiso(index) {
-            if (confirm('¿Estás seguro de que deseas eliminar este compromiso?')) {
-                const compromisos = this.loadCompromisos();
-                compromisos.splice(index, 1);
-                this.saveCompromisos(compromisos);
-                app.render();
+            try {
+                const res = await fetch('/api/compromisos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newItem)
+                });
+                if (!res.ok) {
+                    throw new Error('Failed to save online');
+                }
+            } catch (err) {
+                console.error('Error saving online, saving to local storage instead:', err);
+                const fallbackList = this.loadCompromisosFallback();
+                fallbackList.unshift(newItem);
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(fallbackList));
+            } finally {
+                const nameInput = document.getElementById('nombre');
+                const compInput = document.getElementById('compromiso');
+                if (nameInput) nameInput.value = '';
+                if (compInput) compInput.value = '';
+                this.loadCompromisosOnline();
             }
         },
 
-        loadCompromisos() {
-            const data = localStorage.getItem(this.STORAGE_KEY);
-            return data ? JSON.parse(data) : [];
-        },
+        async deleteCompromiso(index) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este compromiso?')) return;
 
-        saveCompromisos(compromisos) {
-            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(compromisos));
+            if (this.compromisosList) {
+                this.compromisosList.splice(index, 1);
+                app.render();
+            }
+
+            try {
+                const res = await fetch(`/api/compromisos?index=${index}`, {
+                    method: 'DELETE'
+                });
+                if (!res.ok) {
+                    throw new Error('Failed to delete online');
+                }
+            } catch (err) {
+                console.error('Error deleting online, deleting from local storage:', err);
+                const fallbackList = this.loadCompromisosFallback();
+                fallbackList.splice(index, 1);
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(fallbackList));
+            } finally {
+                this.loadCompromisosOnline();
+            }
         },
 
         escapeHtml(text) {
