@@ -204,23 +204,22 @@ const quizData = {
         { id: 5, title: "La Inclusión en el Pacífico: Nuestra Identidad Cultural", content: "En Buenaventura y la región del Pacífico, la diversidad no es solo un concepto teórico; es nuestra esencia. La etnoeducación juega un papel fundamental para derribar barreras históricas. Una verdadera educación inclusiva en nuestro contexto implica integrar los saberes ancestrales, la tradición oral y promover espacios como encuentros culturales dentro de las instituciones. Al valorar estas expresiones como herramientas pedagógicas, las escuelas se transforman en espacios de reconocimiento donde todos los estudiantes se sienten representados y orgullosos de su identidad, garantizando una participación plena y equitativa.", author: "Comunidad del Pacífico", context: "La etnoeducación es el camino hacia la verdadera inclusión" }
     ],
 
-    // ========== MÓDULO: DERECHOS LGBTQ+ ==========
+    // ========== MÓDULO: DERECHOS Y DEBERES ==========
     derechosContent: [
-        { id: 1, title: "Derechos Fundamentales", content: "Toda persona tiene derecho a: identidad, expresión libre, no discriminación, acceso a oportunidades iguales, protección legal, y el derecho a amar y ser amado.", countries: ["Colombia", "Argentina", "Brasil", "Uruguay"], progress: "Some rights recognized" },
-        { id: 2, title: "Matrimonio Igualitario", content: "El derecho al matrimonio entre personas del mismo sexo es un hito importante. Permite acceso a beneficios legales, herencias, y validación social.", countries: ["Argentina", "Brasil", "Colombia"], progress: "Legal in multiple countries" },
-        { id: 3, title: "Cambio de Identidad Legal", content: "Muchas personas transgénero necesitan cambiar su documentación legal. Algunos países lo permiten fácilmente, mientras otros requieren procedimientos complejos.", countries: ["Argentina (leader)", "Colombia (progress)", "Uruguay (progress)"], progress: "Improving in Latin America" },
-        { id: 4, title: "Protección contra Discriminación", content: "Leyes anti-discriminación protegen a personas LGBTQ+ en empleo, educación, vivienda y servicios. Son esenciales para la igualdad.", countries: ["Several LA countries", "Some EU countries", "Progressive Canada"], progress: "Variable globally" }
+        { id: 1, title: "Derecho a la Educación Inclusiva", content: "Todo estudiante tiene derecho a recibir una educación de calidad, en un ambiente que respete sus ritmos de aprendizaje y necesidades especiales, sin ser excluido.", category: "Derechos del Estudiante", icon: "school" },
+        { id: 2, title: "Derecho al Buen Trato", content: "Todo estudiante tiene derecho a ser tratado con respeto y dignidad por sus compañeros y profesores, libre de acoso escolar (bullying), burlas o violencia.", category: "Derechos del Estudiante", icon: "volunteer_activism" },
+        { id: 3, title: "Deber de Respetar", content: "Es tu deber tratar a todos tus compañeros con respeto, aceptando sus diferencias físicas, culturales, neurológicas y de aprendizaje.", category: "Deberes del Estudiante", icon: "handshake" },
+        { id: 4, title: "Deber de Incluir", content: "Es tu responsabilidad ser un buen compañero, no dejar a nadie excluido en los juegos o trabajos de grupo y promover un ambiente de paz.", category: "Deberes del Estudiante", icon: "group_add" }
     ],
 
     // ========== MÓDULO: HISTORIA ==========
     historiaContent: [
-        { id: 1, year: "1969", event: "Stonewall Uprising", description: "El levantamiento de Stonewall en Nueva York marca el inicio del movimiento moderno por derechos LGBTQ+. La resistencia contra la persecución policial se convierte en un símbolo global." },
-        { id: 2, year: "1978", event: "Primer Orgullo", description: "Se celebra la primera marcha del orgullo LGBTQ+, conmemorando Stonewall. Rápidamente se expande a ciudades alrededor del mundo." },
-        { id: 3, year: "1990", event: "OMS Elimina la Homosexualidad", description: "La Organización Mundial de la Salud deja de clasificar la homosexualidad como enfermedad, un paso clave hacia la despatologización global." },
-        { id: 4, year: "1996", event: "Primeras Uniones Civiles", description: "Dinamarca reconoce las primeras uniones civiles homosexuales. Un paso importante hacia la igualdad legal." },
-        { id: 5, year: "2001", event: "Matrimonio Igualitario en Holanda", description: "Holanda se convierte en el primer país en legalizar el matrimonio igualitario. Otros países rápidamente siguen este ejemplo." },
-        { id: 6, year: "2009", event: "ONU Declara Derechos", description: "Las Naciones Unidas reconocen los derechos de personas LGBTQ+ como derechos humanos fundamentales." },
-        { id: 7, year: "2010", event: "Matrimonio en América Latina", description: "Argentina se convierte en el primer país latinoamericano en legalizar matrimonio igualitario." }
+        { id: 1, year: "1948", event: "Declaración Universal", description: "Se adopta la Declaración Universal de los Derechos Humanos, estableciendo que todos los seres humanos nacen libres e iguales en dignidad y derechos." },
+        { id: 2, year: "1959", event: "Derechos del Niño", description: "Se aprueba la Declaración de los Derechos del Niño, reconociendo la necesidad de protección especial y cuidado para la infancia." },
+        { id: 3, year: "1989", event: "Convención del Niño", description: "Se adopta la Convención sobre los Derechos del Niño, el tratado de derechos humanos más ratificado de la historia, garantizando la no discriminación." },
+        { id: 4, year: "1994", event: "Educación Especial", description: "La Declaración de Salamanca impulsa la inclusión educativa, estableciendo que las escuelas deben acoger a todos los niños, independientemente de sus condiciones físicas, intelectuales o emocionales." },
+        { id: 5, year: "2006", event: "Derechos de Personas con Discapacidad", description: "Se adopta la Convención sobre los Derechos de las Personas con Discapacidad, promoviendo el respeto a su dignidad inherente y autonomía individual." },
+        { id: 6, year: "2015", event: "Agenda 2030", description: "La ONU aprueba los Objetivos de Desarrollo Sostenible, incluyendo garantizar una educación inclusiva, equitativa y de calidad para todos." }
     ],
 
     historiaContentInclusiva: [
@@ -233,12 +232,12 @@ const quizData = {
 
     // ========== MÓDULO: SER ALIADO ==========
     aliadoContent: [
-        { id: 1, step: "Edúcate a ti mismo", description: "Aprende sobre identidad de género, orientaciones sexuales, y experiencias LGBTQ+. Lee libros, ve documentales, asiste a charlas.", tips: ["Leer a autores LGBTQ+", "Escuchar podcasts", "Ver documentales", "Asistir a eventos"] },
-        { id: 2, step: "Escucha sin Juzgar", description: "Cuando alguien comparte su identidad contigo, escucha con apertura y respeto. No hagas suposiciones basadas en apariencia.", tips: ["Mantén silencio y escucha", "No interrumpas", "Haz preguntas respetuosas", "Valida sus experiencias"] },
-        { id: 3, step: "Usa los Pronombres Correctos", description: "Respeta los pronombres preferidos de cada persona. Si no estás seguro, pregunta respetuosamente.", tips: ["Pregunta si es necesario", "Corrige tus errores", "Practica mentalmente", "No hagas gran drama si fallas"] },
-        { id: 4, step: "De Espectador a Defensor", description: "Si ves discriminación o acoso, no te quedes en silencio. Intervén de forma segura y apoya a la persona afectada.", tips: ["Cuestiona chistes ofensivos", "Apoya a victimas", "Reporta discriminación", "Documenta incidentes"] },
-        { id: 5, step: "Apoya Activamente", description: "Participa en eventos, apoya organizaciones, vota por políticas inclusivas, y usa tu voz para abogar por igualdad.", tips: ["Asiste a eventos Pride", "Dona a organizaciones", "Vota inclusivamente", "Haz activismo"] },
-        { id: 6, step: "Reconoce tu Privilegio", description: "Entiende que si eres cisgénero y heterosexual, tienes privilegios. Úsalos para amplificar voces marginalizadas.", tips: ["Reconoce tu privilegio", "Cede espacios", "Escucha voces marginalizadas", "Usa tu plataforma"] }
+        { id: 1, step: "Sé un buen compañero", description: "Acércate a quienes están solos en el recreo o trabajos en grupo. Un simple 'hola' puede cambiar el día de alguien.", tips: ["Saluda a los nuevos", "Invita a jugar o participar", "Comparte materiales", "Sé amable con todos"] },
+        { id: 2, step: "Escucha con Empatía", description: "Cuando alguien te cuente sus problemas o cómo se siente, escúchalo sin burlarte ni juzgar. Valida sus emociones.", tips: ["Presta atención activa", "No interrumpas al otro", "No te rías de sus sentimientos", "Ofrece palabras de apoyo"] },
+        { id: 3, step: "Di NO al Bullying", description: "Si ves que molestan a alguien por su apariencia, orientación, origen o forma de ser, no te quedes callado. Defiende a tus compañeros.", tips: ["No compartas burlas ni rumores", "Avisa a un profesor o adulto", "Apoya a la víctima", "Pide que se detengan"] },
+        { id: 4, step: "Respeta las Diferencias", description: "Todas las personas somos diferentes (gustos, capacidades, neurodiversidad, identidades). Aprende de esas diferencias en lugar de criticarlas.", tips: ["Usa los pronombres que te pidan", "Respeta sus creencias", "No uses insultos ni apodos", "Celebra lo que nos hace únicos"] },
+        { id: 5, step: "Incluye a Todos", description: "En los juegos y grupos de trabajo, asegúrate de que todos tengan la oportunidad de participar y dar su opinión.", tips: ["Haz equipos diversos", "Escucha todas las ideas", "No dejes a nadie fuera", "Fomenta la participación"] },
+        { id: 6, step: "Reconoce tus errores", description: "Nadie es perfecto. Si haces sentir mal a alguien sin querer, pide disculpas sinceramente y aprende para la próxima.", tips: ["Pide perdón de corazón", "No te justifiques", "Cambia tu actitud", "Aprende de la experiencia"] }
     ],
 
     // ========== EVALUACIÓN EXPANDIDA ==========

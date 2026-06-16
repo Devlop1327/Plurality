@@ -14,7 +14,7 @@ const Aliado = {
         <div class="max-w-7xl mx-auto px-8 py-12">
             <div class="mb-8">
                 <h1 class="text-4xl font-bold text-[#7E57C2] dark:text-[#b39ddb] mb-2">Cómo ser un Aliado</h1>
-                <p class="text-slate-600 dark:text-slate-400">Aprende los pasos para ser un aliado efectivo de la comunidad LGBTQ+</p>
+                <p class="text-slate-600 dark:text-slate-400">Aprende los pasos para ser un buen compañero y crear un entorno inclusivo en tu colegio.</p>
             </div>
 
             <!-- Progress Bar -->

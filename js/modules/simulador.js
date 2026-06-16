@@ -73,7 +73,6 @@ const Simulador = {
                     </span>
                 </div>
             </div>
-            <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">+${choice.points} puntos</p>
         </button>
         `;
     },

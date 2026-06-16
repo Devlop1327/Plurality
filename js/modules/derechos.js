@@ -13,8 +13,8 @@ const Derechos = {
         let html = `
         <div class="max-w-7xl mx-auto px-8 py-12">
             <div class="mb-8">
-                <h1 class="text-4xl font-bold text-[#7E57C2] dark:text-[#b39ddb] mb-2">Derechos LGBTQ+</h1>
-                <p class="text-slate-600 dark:text-slate-400">Conoce los derechos fundamentales de la comunidad LGBTQ+ en el mundo</p>
+                <h1 class="text-4xl font-bold text-[#7E57C2] dark:text-[#b39ddb] mb-2">Derechos y Deberes</h1>
+                <p class="text-slate-600 dark:text-slate-400">Conoce tus derechos fundamentales como estudiante y tus deberes para mantener una buena convivencia.</p>
             </div>
 
             <!-- Progress Bar -->
@@ -29,12 +29,14 @@ const Derechos = {
 
             <!-- Content Card -->
             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 mb-8">
-                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">${current.title}</h2>
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
+                    <span class="material-symbols-outlined text-4xl text-purple-600">${current.icon}</span>
+                    ${current.title}
+                </h2>
                 <p class="text-slate-700 dark:text-slate-300 text-lg leading-relaxed mb-6">${current.content}</p>
                 
                 <div class="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-600 p-4 rounded mb-6">
-                    <p class="text-sm text-slate-600 dark:text-slate-300"><strong>Países prominentes:</strong> ${current.countries.join(', ')}</p>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-2"><strong>Estado global:</strong> ${current.progress}</p>
+                    <p class="text-sm font-semibold text-slate-700 dark:text-slate-300"><strong>Categoría:</strong> ${current.category}</p>
                 </div>
             </div>
 

@@ -148,7 +148,6 @@ html,
   line-height: 1.5;
   /* 1 */
   -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%; /* eslint-disable-line */
   /* 2 */
   -moz-tab-size: 4;
   /* 3 */
@@ -349,7 +348,6 @@ input:where([type='button']),
 input:where([type='reset']),
 input:where([type='submit']) {
   -webkit-appearance: button;
-  appearance: button;
   /* 1 */
   background-color: transparent;
   /* 2 */
@@ -397,7 +395,6 @@ Correct the cursor style of increment and decrement buttons in Safari.
 
 [type='search'] {
   -webkit-appearance: textfield;
-  appearance: textfield;
   /* 1 */
   outline-offset: -2px;
   /* 2 */
@@ -537,6 +534,8 @@ embed,
 object {
   display: block;
   /* 1 */
+  vertical-align: middle;
+  /* 2 */
 }
 
 /*
@@ -784,76 +783,6 @@ input:where([type='file']):focus {
   }
 }
 
-/* Footer accessibility panel styles */
-.footer-accessibility {
-  width: 100%;
-  padding-top: 8px;
-}
-.footer-accessibility #contrast-btn {
-  box-shadow: 0 6px 18px rgba(2,6,23,0.35);
-}
-
-/* Accessibility panel collapsed/expanded styles */
-#accessibility-panel {
-  transition: width 0.35s cubic-bezier(.2,.9,.2,1), height 0.35s cubic-bezier(.2,.9,.2,1), border-radius 0.35s, padding 0.25s, transform 0.35s;
-}
-
-#accessibility-panel .accessibility-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-}
-
-.accessibility-collapsed {
-  width: 56px !important;
-  height: 56px !important;
-  padding: 6px !important;
-  border-radius: 9999px !important;
-  overflow: visible;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-.accessibility-collapsed .panel-content {
-  opacity: 0;
-  transform: scale(0.85);
-  pointer-events: none;
-  height: 0;
-  width: 0;
-}
-
-.accessibility-collapsed .accessibility-toggle {
-  /* Make the toggle cover the whole collapsed panel so any touch toggles */
-  display: inline-flex;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  z-index: 60;
-  pointer-events: auto;
-}
-
-/* Hide the floating toggle when the panel is expanded */
-#accessibility-panel:not(.accessibility-collapsed) .accessibility-toggle {
-  display: none;
-}
-
-.panel-content {
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-/* Small visual tweak for the floating button when visible */
-.accessibility-toggle {
-  border: 1px solid rgba(0,0,0,0.06);
-}
-
-
 .pointer-events-none {
   pointer-events: none;
 }
@@ -892,10 +821,6 @@ input:where([type='file']):focus {
 
 .left-8 {
   left: 2rem;
-}
-
-.right-4 {
-  right: 1rem;
 }
 
 .right-8 {
@@ -1195,6 +1120,10 @@ input:where([type='file']):focus {
   width: 8rem;
 }
 
+.w-36 {
+  width: 9rem;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -1226,11 +1155,6 @@ input:where([type='file']):focus {
 
 .min-w-\[2rem\] {
   min-width: 2rem;
-}
-
-.min-w-max {
-  min-width: -moz-max-content;
-  min-width: max-content;
 }
 
 .max-w-2xl {
@@ -1362,6 +1286,10 @@ input:where([type='file']):focus {
 
 .items-center {
   align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
 }
 
 .justify-center {
@@ -1831,11 +1759,6 @@ input:where([type='file']):focus {
 
 .bg-primary\/10 {
   background-color: rgb(101 61 167 / 0.1);
-}
-
-.bg-purple-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 232 255 / var(--tw-bg-opacity, 1));
 }
 
 .bg-purple-50 {
@@ -2435,11 +2358,6 @@ input:where([type='file']):focus {
 
 .tracking-widest {
   letter-spacing: 0.1em;
-}
-
-.text-\[\#1f4e79\] {
-  --tw-text-opacity: 1;
-  color: rgb(31 78 121 / var(--tw-text-opacity, 1));
 }
 
 .text-\[\#7E57C2\] {
@@ -3087,11 +3005,6 @@ h1, h2, h3 {
   background-color: rgb(241 245 249 / 0.5);
 }
 
-.hover\:bg-slate-200:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1));
-}
-
 .hover\:bg-slate-300:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(203 213 225 / var(--tw-bg-opacity, 1));
@@ -3344,11 +3257,6 @@ h1, h2, h3 {
   background-color: rgb(101 61 167 / 0.2);
 }
 
-.dark\:bg-purple-900:is(.dark *) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(88 28 135 / var(--tw-bg-opacity, 1));
-}
-
 .dark\:bg-purple-900\/20:is(.dark *) {
   background-color: rgb(88 28 135 / 0.2);
 }
@@ -3540,11 +3448,6 @@ h1, h2, h3 {
 
 .dark\:to-slate-900:is(.dark *) {
   --tw-gradient-to: #0f172a var(--tw-gradient-to-position);
-}
-
-.dark\:text-\[\#8ab4f8\]:is(.dark *) {
-  --tw-text-opacity: 1;
-  color: rgb(138 180 248 / var(--tw-text-opacity, 1));
 }
 
 .dark\:text-\[\#b39ddb\]:is(.dark *) {
@@ -3782,98 +3685,4 @@ h1, h2, h3 {
   .xl\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-}
-
-/* ============================
-   ESTILOS DE ALTO CONTRASTE
-   ============================ */
-
-body.high-contrast {
-  background-color: #000000 !important;
-  color: #ffffff !important;
-}
-
-body.high-contrast *,
-body.high-contrast *::before,
-body.high-contrast *::after {
-  color: #ffffff !important;
-  border-color: #ffffff !important;
-}
-
-body.high-contrast header,
-body.high-contrast footer,
-body.high-contrast nav,
-body.high-contrast .bg-white,
-body.high-contrast .bg-slate-50,
-body.high-contrast .bg-slate-100 {
-  background-color: #000000 !important;
-}
-
-body.high-contrast .dark\:bg-slate-900,
-body.high-contrast .dark\:bg-slate-800 {
-  background-color: #000000 !important;
-}
-
-body.high-contrast button,
-body.high-contrast a,
-body.high-contrast input,
-body.high-contrast select,
-body.high-contrast textarea {
-  background-color: #000000 !important;
-  color: #ffffff !important;
-  border: 2px solid #ffffff !important;
-}
-
-body.high-contrast button:hover,
-body.high-contrast a:hover {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-}
-
-body.high-contrast .text-slate-600,
-body.high-contrast .text-slate-700,
-body.high-contrast .text-slate-900,
-body.high-contrast .dark\:text-slate-300,
-body.high-contrast .dark\:text-slate-400 {
-  color: #ffffff !important;
-}
-
-body.high-contrast .text-\[\\#7E57C2\],
-body.high-contrast .dark\:text-\[\\#b39ddb\] {
-  color: #ffff00 !important;
-}
-
-body.high-contrast .bg-\[\\#7E57C2\],
-body.high-contrast .bg-purple-100,
-body.high-contrast .dark\:bg-purple-900 {
-  background-color: #ffff00 !important;
-  color: #000000 !important;
-}
-
-body.high-contrast .border-slate-200,
-body.high-contrast .border-slate-800,
-body.high-contrast .dark\:border-slate-700 {
-  border-color: #ffffff !important;
-}
-
-body.high-contrast .shadow-sm,
-body.high-contrast .shadow-lg {
-  box-shadow: 0 0 0 2px #ffffff !important;
-}
-
-body.high-contrast #accessibility-panel {
-  background-color: #000000 !important;
-  border: 2px solid #ffffff !important;
-}
-
-body.high-contrast .bg-slate-100,
-body.high-contrast .dark\:bg-slate-700 {
-  background-color: #000000 !important;
-  border: 2px solid #ffffff !important;
-}
-
-body.high-contrast .bg-purple-100,
-body.high-contrast .dark\:bg-purple-900 {
-  background-color: #ffff00 !important;
-  color: #000000 !important;
 }

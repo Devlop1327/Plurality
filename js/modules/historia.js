@@ -1,24 +1,24 @@
 // Historia Module
 const Historia = {
-    currentTimeline: 'lgbtq',
+    currentTimeline: 'humanos',
     currentSection: 0,
 
     reset() {
-        this.currentTimeline = 'lgbtq';
+        this.currentTimeline = 'humanos';
         this.currentSection = 0;
     },
 
     getCurrentTimeline() {
-        return this.currentTimeline === 'lgbtq'
+        return this.currentTimeline === 'humanos'
             ? quizData.historiaContent
             : quizData.historiaContentInclusiva;
     },
 
     getTimelineMeta() {
-        return this.currentTimeline === 'lgbtq'
+        return this.currentTimeline === 'humanos'
             ? {
-                title: 'Historia LGBTQ+',
-                description: 'Conoce los hitos más importantes del movimiento LGBTQ+ global'
+                title: 'Historia de los Derechos',
+                description: 'Conoce los hitos más importantes de los Derechos Humanos y de los Niños'
             }
             : {
                 title: 'Historia de la Educación Inclusiva',
@@ -32,8 +32,8 @@ const Historia = {
         const meta = this.getTimelineMeta();
 
         const timelines = [
-            { id: 'lgbtq', label: 'LGBTQ+' },
-            { id: 'inclusiva', label: 'Inclusiva' }
+            { id: 'humanos', label: 'Derechos Humanos' },
+            { id: 'inclusiva', label: 'Educación Inclusiva' }
         ];
 
         let html = `
