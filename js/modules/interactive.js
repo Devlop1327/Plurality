@@ -197,7 +197,11 @@ const InteractiveComponents = {
                 const res = await fetch('/api/compromisos');
                 if (res.ok) {
                     const result = await res.json();
-                    this.compromisosList = result.data || [];
+                    if (result.status === 'fallback') {
+                        this.compromisosList = this.loadCompromisosFallback();
+                    } else {
+                        this.compromisosList = result.data || [];
+                    }
                 } else {
                     console.error('Failed to load commitments online, falling back to local storage.');
                     this.compromisosList = this.loadCompromisosFallback();
